@@ -15,6 +15,8 @@
 		4A2EF3B72C2DF13D00A6E6F1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EF3B62C2DF13D00A6E6F1 /* User.swift */; };
 		4A2EF3BC2C2DF18100A6E6F1 /* Objective.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EF3BB2C2DF18100A6E6F1 /* Objective.swift */; };
 		4A2EF3BE2C2DF1DE00A6E6F1 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EF3BD2C2DF1DE00A6E6F1 /* Habit.swift */; };
+		4A2EF3C12C2DF28700A6E6F1 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EF3C02C2DF28700A6E6F1 /* UserRepository.swift */; };
+		4A2EF3C42C2DF2AF00A6E6F1 /* UserSwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EF3C32C2DF2AF00A6E6F1 /* UserSwiftDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		4A2EF3B62C2DF13D00A6E6F1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4A2EF3BB2C2DF18100A6E6F1 /* Objective.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Objective.swift; sourceTree = "<group>"; };
 		4A2EF3BD2C2DF1DE00A6E6F1 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		4A2EF3C02C2DF28700A6E6F1 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		4A2EF3C32C2DF2AF00A6E6F1 /* UserSwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSwiftDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				4A2EF3B32C2DEFF100A6E6F1 /* Database */,
-				4A2EF3B52C2DF12900A6E6F1 /* Models */,
 				4A2EF3892C2DEF4500A6E6F1 /* SwiftDataCoreDataApp.swift */,
 				4A2EF38B2C2DEF4500A6E6F1 /* ContentView.swift */,
 				4A2EF38D2C2DEF4600A6E6F1 /* Assets.xcassets */,
@@ -108,6 +111,9 @@
 		4A2EF3B32C2DEFF100A6E6F1 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				4A2EF3B52C2DF12900A6E6F1 /* Models */,
+				4A2EF3BF2C2DF25D00A6E6F1 /* Repository */,
+				4A2EF3C22C2DF29200A6E6F1 /* Services */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -120,6 +126,22 @@
 				4A2EF3BD2C2DF1DE00A6E6F1 /* Habit.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4A2EF3BF2C2DF25D00A6E6F1 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				4A2EF3C02C2DF28700A6E6F1 /* UserRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		4A2EF3C22C2DF29200A6E6F1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4A2EF3C32C2DF2AF00A6E6F1 /* UserSwiftDataService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +246,8 @@
 			files = (
 				4A2EF38C2C2DEF4500A6E6F1 /* ContentView.swift in Sources */,
 				4A2EF3BE2C2DF1DE00A6E6F1 /* Habit.swift in Sources */,
+				4A2EF3C42C2DF2AF00A6E6F1 /* UserSwiftDataService.swift in Sources */,
+				4A2EF3C12C2DF28700A6E6F1 /* UserRepository.swift in Sources */,
 				4A2EF3BC2C2DF18100A6E6F1 /* Objective.swift in Sources */,
 				4A2EF38A2C2DEF4500A6E6F1 /* SwiftDataCoreDataApp.swift in Sources */,
 				4A2EF3B72C2DF13D00A6E6F1 /* User.swift in Sources */,
