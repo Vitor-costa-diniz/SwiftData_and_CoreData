@@ -14,8 +14,8 @@ protocol UserRepository {
     func updateObjective(objective: Objective)
     func fetchObjectives() -> [Objective]?
     func deleteObjective(objective: Objective)
-    func addHabit(to objective: Objective, habit: Habits)
-    func updateHabit(habit: Habits)
-    func fetchHabits(for objective: Objective) -> [Habits]?
+    func addHabit(to objective: Objective, habit: Habit)
+    func updateHabit(habit: Habit)
+    func fetchHabits(for objective: Objective) -> [Habit]?
     func deleteHabit(id: UUID)
 }

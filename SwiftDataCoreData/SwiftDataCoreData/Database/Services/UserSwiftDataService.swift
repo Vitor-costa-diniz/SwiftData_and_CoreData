@@ -78,7 +78,7 @@ class UserSwiftDataService: UserRepository {
         }
     }
     
-    func addHabit(to objective: Objective, habit: Habits) {
+    func addHabit(to objective: Objective, habit: Habit) {
         do {
             let user = fetchUser()
             if let index = user.objectives?.firstIndex(where: { $0.id == objective.id }) {
@@ -91,9 +91,9 @@ class UserSwiftDataService: UserRepository {
         }
     }
     
-    func updateHabit(habit: Habits) {
+    func updateHabit(habit: Habit) {
         do {
-            if var habitToUpdate = modelContext.model(for: habit.id) as? Habits {
+            if var habitToUpdate = modelContext.model(for: habit.id) as? Habit {
                 habitToUpdate = habit
                 modelContext.insert(habitToUpdate)
                 try modelContext.save()
@@ -103,7 +103,7 @@ class UserSwiftDataService: UserRepository {
         }
     }
     
-    func fetchHabits(for objective: Objective) -> [Habits]? {
+    func fetchHabits(for objective: Objective) -> [Habit]? {
         return objective.habits
     }
     
@@ -113,7 +113,7 @@ class UserSwiftDataService: UserRepository {
             for (index, objective) in (user.objectives ?? []).enumerated() {
                 user.objectives?[index].habits = objective.habits?.filter { $0.id != id }
             }
-            let descriptor = FetchDescriptor<Habits>(predicate: #Predicate { $0.id == id })
+            let descriptor = FetchDescriptor<Habit>(predicate: #Predicate { $0.id == id })
             if let habitToDelete = try modelContext.fetch(descriptor).first {
                 modelContext.delete(habitToDelete)
                 try modelContext.save()
