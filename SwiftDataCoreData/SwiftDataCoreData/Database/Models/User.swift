@@ -12,14 +12,11 @@ import SwiftData
 @Model
 class User {
     var name: String?
-    var tomatos: Int?
     @Relationship(deleteRule: .cascade) var objectives: [Objective]?
     
     init(name: String? = nil,
-         tomatos: Int? = nil,
          objectives: [Objective]? = nil) {
         self.name = name
-        self.tomatos = tomatos
         self.objectives = objectives
     }
 }

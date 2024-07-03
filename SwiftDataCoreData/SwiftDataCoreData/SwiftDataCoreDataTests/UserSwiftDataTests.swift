@@ -72,7 +72,7 @@ final class UserSwiftDataServiceTests: XCTestCase {
 
     func test_add_habit() throws {
         let mockObjetive = Objective(name: "Testar", startDate: Date())
-        let mockHabit = Habit(name: "Noite", notes: "Teste ne paizao")
+        let mockHabit = Habit(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
         viewModel.setUserName(name: "vitor")
         viewModel.addObjective(objective: mockObjetive)
 
@@ -83,7 +83,7 @@ final class UserSwiftDataServiceTests: XCTestCase {
 
     func test_update_habit() throws {
         let mockObjetive = Objective(name: "Testar", startDate: Date())
-        let mockHabit = Habit(name: "Noite", notes: "Teste ne paizao")
+        let mockHabit = Habit(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
         viewModel.setUserName(name: "vitor")
         viewModel.addObjective(objective: mockObjetive)
         viewModel.addHabit(to: mockObjetive, habit: mockHabit)
@@ -97,8 +97,8 @@ final class UserSwiftDataServiceTests: XCTestCase {
 
     func test_list_habits() throws {
         let mockObjetive = Objective(name: "Testar", startDate: Date())
-        let mockHabit = Habit(name: "Noite", notes: "Teste ne paizao")
-        let mockHabit2 = Habit(name: "Manha", notes: "Dormir que sou fraco")
+        let mockHabit = Habit(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
+        let mockHabit2 = Habit(name: "Manha", date: Date(), place: "", notes: "Dormir que sou fraco")
 
         viewModel.setUserName(name: "vitor")
         viewModel.addObjective(objective: mockObjetive)
@@ -112,8 +112,8 @@ final class UserSwiftDataServiceTests: XCTestCase {
 
     func test_delete_habit() throws {
         let mockObjetive = Objective(name: "Testar", startDate: Date())
-        let mockHabit = Habit(name: "Noite", notes: "Teste ne paizao")
-        let mockHabit2 = Habit(name: "Manha", notes: "Dormir que sou fraco")
+        let mockHabit = Habit(name: "Noite",date: Date(), place: "", notes: "Teste ne paizao")
+        let mockHabit2 = Habit(name: "Manha",date: Date(), place: "", notes: "Dormir que sou fraco")
 
         viewModel.setUserName(name: "vitor")
         viewModel.addObjective(objective: mockObjetive)

@@ -11,16 +11,14 @@ import SwiftData
 @Model
 class Habit {
     @Attribute(.unique) var id: UUID = UUID()
-    var name: String?
-    var date: Date?
-    var place: String?
+    var name: String
+    var date: Date
+    var place: String
     var notes: String?
     
-    init(name: String? = nil,
-         date: Date? = nil,
-         place: String? = nil,
-         notificationTimer: Date? = nil,
-         blockScreen: Bool? = nil,
+    init(name: String,
+         date: Date,
+         place: String,
          notes: String? = nil) {
         self.name = name
         self.date = date

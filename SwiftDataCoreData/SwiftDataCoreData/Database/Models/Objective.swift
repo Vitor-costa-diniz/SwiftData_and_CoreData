@@ -11,14 +11,14 @@ import SwiftData
 @Model
 class Objective {
     @Attribute(.unique) var id: UUID = UUID()
-    var name: String?
+    var name: String
+    var startDate: Date
     var notes: String?
-    var startDate: Date?
     @Relationship(deleteRule: .cascade) var habits: [Habit]?
     
-    init(name: String? = nil,
+    init(name: String,
+         startDate: Date,
          notes: String? = nil,
-         startDate: Date? = nil,
          habits: [Habit]? = nil) {
         self.name = name
         self.notes = notes
