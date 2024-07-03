@@ -9,9 +9,10 @@ import SwiftUI
 
 struct AppTabBar: View {
     @State private var tabBarSelection: Int = 0
+    
     var body: some View {
         TabView(selection: $tabBarSelection) {
-            Text("Testing")
+            HomeView()
                 .tag(0)
                 .tabItem {
                     Label(
