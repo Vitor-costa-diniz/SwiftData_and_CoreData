@@ -12,6 +12,7 @@ struct AddObjetiveSheet: View {
     @State var name: String = ""
     @State var date: Date = Date()
     @State var notes: String = ""
+    @EnvironmentObject var viewModel: HomeViewModel
     
     var body: some View {
         NavigationStack {
@@ -55,6 +56,8 @@ struct AddObjetiveSheet: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
+                        let objective = Objective(name: name, startDate: date, notes: notes.isEmpty ? nil : notes)
+                        viewModel.addObjective(objective: objective)
                         dismiss()
                         name = ""
                         notes = ""
