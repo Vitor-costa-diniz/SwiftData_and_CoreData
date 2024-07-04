@@ -27,4 +27,20 @@ class HomeViewModel: ObservableObject {
         persistenceService?.setUserName(name: name)
         self.user = persistenceService?.fetchUser() ?? User()
     }
+    
+    func addObjective(objective: Objective) {
+        persistenceService?.addObjective(objective: objective)
+    }
+
+    func updateObjective(objective: Objective) {
+        persistenceService?.updateObjective(objective: objective)
+    }
+
+    func fetchObjectives() -> [Objective]? {
+        return persistenceService?.fetchObjectives()
+    }
+
+    func deleteObjective(objective: Objective) {
+        persistenceService?.deleteObjective(objective: objective)
+    }
 }

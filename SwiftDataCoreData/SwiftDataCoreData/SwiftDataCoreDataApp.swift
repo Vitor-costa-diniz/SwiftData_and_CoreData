@@ -13,7 +13,7 @@ struct SwiftDataCoreDataApp: App {
     var body: some Scene {
         WindowGroup {
             AppTabBar()
-                .modelContainer(for: User.self)
+                .modelContainer(for: User.self, inMemory: true)
         }
     }
 }
