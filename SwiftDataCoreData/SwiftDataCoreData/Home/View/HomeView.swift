@@ -17,7 +17,7 @@ struct HomeView: View {
             TextField("User name", text: $text)
             
             Button(action: { 
-                viewModel.user.name = text
+                viewModel.setUserName(name: text)
                 text = ""
             }, label: {
                 Text("Press to set user name")

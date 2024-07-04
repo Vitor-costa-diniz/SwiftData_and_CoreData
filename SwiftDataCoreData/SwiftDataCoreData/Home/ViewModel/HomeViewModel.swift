@@ -16,8 +16,15 @@ class HomeViewModel: ObservableObject {
     init() { }
     
     func setContext(_ context: ModelContext) {
-         self.modelContext = context
-         self.persistenceService = UserSwiftDataService(modelContext: context)
-         self.user = persistenceService?.fetchUser() ?? User()
-     }
+        self.modelContext = context
+        self.persistenceService = UserSwiftDataService(modelContext: context)
+        if let persistence = persistenceService {
+            self.user = persistence.fetchUser()
+        }
+    }
+    
+    func setUserName(name: String) {
+        persistenceService?.setUserName(name: name)
+        self.user = persistenceService?.fetchUser() ?? User()
+    }
 }
