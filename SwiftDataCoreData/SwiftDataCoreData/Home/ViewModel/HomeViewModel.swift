@@ -9,13 +9,15 @@ import Foundation
 import SwiftData
 
 class HomeViewModel: ObservableObject {
-    private let persistenceService: UserRepository
-    private let modelContext: ModelContext
-    @Published private(set) var user: User
+    private var persistenceService: UserRepository?
+    private var modelContext: ModelContext?
+    @Published private(set) var user: User = User()
+        
+    init() { }
     
-    init(modelContext: ModelContext) {
-        self.modelContext = modelContext
-        persistenceService = UserSwiftDataService(modelContext: modelContext)
-        self.user = persistenceService.fetchUser()
-    }
+    func setContext(_ context: ModelContext) {
+         self.modelContext = context
+         self.persistenceService = UserSwiftDataService(modelContext: context)
+         self.user = persistenceService?.fetchUser() ?? User()
+     }
 }
