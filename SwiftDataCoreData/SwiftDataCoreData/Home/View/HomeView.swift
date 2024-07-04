@@ -31,7 +31,7 @@ struct HomeView: View {
                 Text("Objectives List")
                     .font(.title)
                 Spacer()
-                Button(action: {}, label: {
+                Button(action: { showObjetiveSheet.toggle() }, label: {
                     Image(systemName: "plus")
                 })
             }
@@ -42,6 +42,9 @@ struct HomeView: View {
             }
             Spacer()
         }
+        .sheet(isPresented: $showObjetiveSheet, content: {
+            AddObjetiveSheet()
+        })
     }
 }
 

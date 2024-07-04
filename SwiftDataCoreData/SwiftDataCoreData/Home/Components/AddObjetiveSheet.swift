@@ -8,9 +8,40 @@
 import SwiftUI
 
 struct AddObjetiveSheet: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            VStack {
+                Text("Hello")
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Text("Cancel")
+                            .foregroundStyle(.red)
+                    })
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("New Objective")
+                        .font(.headline)
+                }
+                
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Text("Create")
+                            .foregroundStyle(.blue)
+                    })
+                }
+            }
+        }
     }
+    
 }
 
 #Preview {
