@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var viewModel: HomeViewModel
     @State private var text: String = ""
-    @State private var showObjetiveSheet: Bool = false
+    @State private var showObjectiveSheet: Bool = false
     
     var body: some View {
         VStack {
@@ -31,7 +31,7 @@ struct HomeView: View {
                 Text("Objectives List")
                     .font(.title)
                 Spacer()
-                Button(action: { showObjetiveSheet.toggle() }, label: {
+                Button(action: { showObjectiveSheet.toggle() }, label: {
                     Image(systemName: "plus")
                 })
             }
@@ -42,8 +42,8 @@ struct HomeView: View {
             }
             Spacer()
         }
-        .sheet(isPresented: $showObjetiveSheet, content: {
-            AddObjetiveSheet()
+        .sheet(isPresented: $showObjectiveSheet, content: {
+            AddObjectiveSheet()
         })
     }
 }

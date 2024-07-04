@@ -1,5 +1,5 @@
 //
-//  AddObjetiveSheet.swift
+//  EditObjectiveSheet.swift
 //  SwiftDataCoreData
 //
 //  Created by Vitor Costa on 04/07/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddObjetiveSheet: View {
+struct EditObjectiveSheet: View {
     @Environment(\.dismiss) var dismiss
     @State var name: String = ""
     @State var date: Date = Date()
@@ -33,6 +33,18 @@ struct AddObjetiveSheet: View {
                             .foregroundStyle(Color.gray.opacity(0.3))
                             .clipShape(.rect(cornerRadius: 16))
                     )
+                    .padding(.bottom, 32)
+                
+                Button(action: {}, label: {
+                    Text("Delete Objective")
+                        .foregroundStyle(.white)
+                        .background(
+                            Rectangle()
+                                .foregroundStyle(.red)
+                                .frame(width: 200, height: 40)
+                                .clipShape(.rect(cornerRadius: 8))
+                        )
+                })
                 
                 Spacer()
             }
@@ -50,7 +62,7 @@ struct AddObjetiveSheet: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    Text("New Objective")
+                    Text("Edit Objective")
                         .font(.headline)
                 }
                 
@@ -62,17 +74,16 @@ struct AddObjetiveSheet: View {
                         name = ""
                         notes = ""
                     }, label: {
-                        Text("Create")
+                        Text("Edit")
                             .foregroundStyle(name.isEmpty ? .gray : .blue)
                     })
                 }
             }
         }
-        .presentationDetents([.fraction(0.3)])
+        .presentationDetents([.fraction(0.5)])
     }
-    
 }
 
 #Preview {
-    AddObjetiveSheet()
+    EditObjectiveSheet()
 }
