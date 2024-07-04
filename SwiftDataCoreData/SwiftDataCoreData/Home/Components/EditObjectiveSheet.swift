@@ -9,15 +9,14 @@ import SwiftUI
 
 struct EditObjectiveSheet: View {
     @Environment(\.dismiss) var dismiss
-    @State var name: String = ""
-    @State var date: Date = Date()
+    @Binding var objective: Objective
     @State var notes: String = ""
     @EnvironmentObject var viewModel: HomeViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Objetive name", text: $name)
+                TextField("Objetive name", text: $objective.name)
                     .background(
                         Rectangle()
                             .frame(height: 50)
@@ -35,7 +34,10 @@ struct EditObjectiveSheet: View {
                     )
                     .padding(.bottom, 32)
                 
-                Button(action: {}, label: {
+                Button(action: {
+                    viewModel.deleteObjective(objective: objective)
+                    dismiss()
+                }, label: {
                     Text("Delete Objective")
                         .foregroundStyle(.white)
                         .background(
@@ -53,7 +55,6 @@ struct EditObjectiveSheet: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
                         dismiss()
-                        name = ""
                         notes = ""
                     }, label: {
                         Text("Cancel")
@@ -68,14 +69,13 @@ struct EditObjectiveSheet: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        let objective = Objective(name: name, startDate: date, notes: notes.isEmpty ? nil : notes)
-                        viewModel.addObjective(objective: objective)
+                        objective.notes = notes.isEmpty ? nil : notes
+                        viewModel.updateObjective(objective: objective)
                         dismiss()
-                        name = ""
                         notes = ""
                     }, label: {
                         Text("Edit")
-                            .foregroundStyle(name.isEmpty ? .gray : .blue)
+                            .foregroundStyle(objective.name.isEmpty ? .gray : .blue)
                     })
                 }
             }
@@ -85,5 +85,5 @@ struct EditObjectiveSheet: View {
 }
 
 #Preview {
-    EditObjectiveSheet()
+    EditObjectiveSheet(objective: .constant(Objective(name: "", startDate: Date())))
 }

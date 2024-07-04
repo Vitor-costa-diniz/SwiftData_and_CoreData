@@ -10,7 +10,9 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var viewModel: HomeViewModel
     @State private var text: String = ""
+    @State private var selectedObjetive: Objective = Objective(name: "", startDate: Date())
     @State private var showObjectiveSheet: Bool = false
+    @State private var showEditObjectiveSheet: Bool = false
     
     var body: some View {
         VStack {
@@ -37,13 +39,22 @@ struct HomeView: View {
             }
             .padding(.horizontal)
             
-            ForEach(viewModel.user.objectives ?? []) {
-                Text($0.name)
+            ForEach(viewModel.user.objectives ?? []) { objetive in
+                Text(objetive.name)
+                    .onTapGesture {
+                        selectedObjetive = objetive
+                        showEditObjectiveSheet.toggle()
+                    }
             }
             Spacer()
         }
         .sheet(isPresented: $showObjectiveSheet, content: {
             AddObjectiveSheet()
+        })
+        .sheet(isPresented: $showEditObjectiveSheet, onDismiss: {
+            selectedObjetive = Objective(name: "", startDate: Date())
+        }, content: {
+            EditObjectiveSheet(objective: $selectedObjetive)
         })
     }
 }
