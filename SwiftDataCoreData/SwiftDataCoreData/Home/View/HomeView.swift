@@ -13,6 +13,7 @@ struct HomeView: View {
     @State private var selectedObjetive: Objective = Objective(name: "", startDate: Date())
     @State private var showObjectiveSheet: Bool = false
     @State private var showEditObjectiveSheet: Bool = false
+    @State private var showAddHabitSheet: Bool = false
     
     var body: some View {
         VStack {
@@ -39,19 +40,13 @@ struct HomeView: View {
             }
             .padding(.horizontal)
             
-            ForEach(viewModel.user.objectives ?? []) { objetive in
+            ForEach(viewModel.fetchObjectives() ?? []) { objetive in
                 HStack {
                     Text(objetive.name)
                         .onTapGesture {
                             selectedObjetive = objetive
                             showEditObjectiveSheet.toggle()
                         }
-                    Spacer()
-                    
-                    Button(action: {}, label: {
-                        Image(systemName: "plus")
-                    })
-                    
                     Spacer()
                 }
             }
@@ -60,8 +55,24 @@ struct HomeView: View {
             
             Spacer()
             
-            Text("Habits List")
-                .font(.title)
+            HStack {
+                Text("Habits List")
+                    .font(.title)
+                Spacer()
+                Button(action: {
+                    if viewModel.fetchObjectives() != [] {
+                        showAddHabitSheet.toggle()
+                    }
+                }, label: {
+                    Image(systemName: "plus")
+                        .foregroundStyle(viewModel.fetchObjectives() != [] ? .blue : .gray)
+                })
+            }
+            .padding(.horizontal)
+            
+            ForEach(viewModel.fetchAllHabtis() ?? []) { habit in
+                Text(habit.name)
+            }
             
             Spacer()
         }
@@ -72,6 +83,9 @@ struct HomeView: View {
             selectedObjetive = Objective(name: "", startDate: Date())
         }, content: {
             EditObjectiveSheet(objective: selectedObjetive)
+        })
+        .sheet(isPresented: $showAddHabitSheet, content: {
+            AddHabitSheet()
         })
     }
 }

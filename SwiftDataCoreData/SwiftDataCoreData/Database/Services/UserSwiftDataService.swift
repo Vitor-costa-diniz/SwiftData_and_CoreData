@@ -109,12 +109,12 @@ class UserSwiftDataService: UserRepository {
     
     func fetchAllHabtis() -> [Habit]? {
         var habit: [Habit] = []
-        do {
-            let descriptor = FetchDescriptor<Habit>(sortBy: [SortDescriptor(\.date)])
-            habit = try modelContext.fetch(descriptor)
-        } catch {
-            print("Fetch Habit failed: \(error)")
-        }
+        var user = fetchUser()
+        user.objectives?.forEach({ objective in
+            objective.habits?.forEach({
+                habit.append($0)
+            })
+        })
         return habit
     }
     

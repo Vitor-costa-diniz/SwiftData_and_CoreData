@@ -43,4 +43,20 @@ class HomeViewModel: ObservableObject {
     func deleteObjective(objective: Objective) {
         persistenceService?.deleteObjective(objective: objective)
     }
+    
+    func addHabit(to objective: Objective, habit: Habit) {
+        persistenceService?.addHabit(to: objective, habit: habit)
+    }
+
+    func updateHabit(habit: Habit) {
+        persistenceService?.updateHabit(habit: habit)
+    }
+    
+    func fetchAllHabtis() -> [Habit]? {
+        return persistenceService?.fetchAllHabtis()
+    }
+    
+    func deleteHabit(id: UUID) {
+        persistenceService?.deleteHabit(id: id)
+    }
 }
