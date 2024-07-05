@@ -10,8 +10,8 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var viewModel: HomeViewModel
     @State private var text: String = ""
-    @State private var selectedObjetive: Objective = Objective(name: "", startDate: Date())
-    @State private var selectedHabit: Habit = Habit(name: "", date: Date(), place: "")
+    @State private var selectedObjetive: Objective?
+    @State private var selectedHabit: Habit?
     @State private var showObjectiveSheet: Bool = false
     @State private var showEditObjectiveSheet: Bool = false
     @State private var showAddHabitSheet: Bool = false
@@ -88,18 +88,14 @@ struct HomeView: View {
         .sheet(isPresented: $showObjectiveSheet, content: {
             AddObjectiveSheet()
         })
-        .sheet(isPresented: $showEditObjectiveSheet, onDismiss: {
-            selectedObjetive = Objective(name: "", startDate: Date())
-        }, content: {
-            EditObjectiveSheet(objective: selectedObjetive)
+        .sheet(item: $selectedObjetive, content: { objective in
+            EditObjectiveSheet(objective: objective)
         })
         .sheet(isPresented: $showAddHabitSheet, content: {
             AddHabitSheet()
         })
-        .sheet(isPresented: $showEditHabitSheet, onDismiss: {
-            selectedHabit = Habit(name: "", date: Date(), place: "")
-        }, content: {
-            EditHabitSheet(habit: selectedHabit)
+        .sheet(item: $selectedHabit, content: { habit in
+            EditHabitSheet(habit: habit)
         })
     }
 }
