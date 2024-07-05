@@ -9,14 +9,15 @@ import SwiftUI
 
 struct EditObjectiveSheet: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var objective: Objective
-    @State var notes: String = ""
+    var objective: Objective
+    @State private var name: String = ""
+    @State private var notes: String = ""
     @EnvironmentObject var viewModel: HomeViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Objetive name", text: $objective.name)
+                TextField("Objetive name", text: $name)
                     .background(
                         Rectangle()
                             .frame(height: 50)
@@ -51,6 +52,7 @@ struct EditObjectiveSheet: View {
                 Spacer()
             }
             .onAppear {
+                name = objective.name
                 notes = objective.notes ?? ""
             }
             .padding(.horizontal)
@@ -58,7 +60,6 @@ struct EditObjectiveSheet: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
                         dismiss()
-                        notes = ""
                     }, label: {
                         Text("Cancel")
                             .foregroundStyle(.red)
@@ -72,13 +73,13 @@ struct EditObjectiveSheet: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
+                        objective.name = name
                         objective.notes = notes.isEmpty ? nil : notes
                         viewModel.updateObjective(objective: objective)
                         dismiss()
-                        notes = ""
                     }, label: {
                         Text("Edit")
-                            .foregroundStyle(objective.name.isEmpty ? .gray : .blue)
+                            .foregroundStyle(name.isEmpty ? .gray : .blue)
                     })
                 }
             }
@@ -88,5 +89,5 @@ struct EditObjectiveSheet: View {
 }
 
 #Preview {
-    EditObjectiveSheet(objective: .constant(Objective(name: "", startDate: Date())))
+    EditObjectiveSheet(objective: Objective(name: "", startDate: Date()))
 }

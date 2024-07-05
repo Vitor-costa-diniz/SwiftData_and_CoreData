@@ -61,7 +61,7 @@ struct HomeView: View {
         .sheet(isPresented: $showEditObjectiveSheet, onDismiss: {
             selectedObjetive = Objective(name: "", startDate: Date())
         }, content: {
-            EditObjectiveSheet(objective: $selectedObjetive)
+            EditObjectiveSheet(objective: selectedObjetive)
         })
     }
 }
