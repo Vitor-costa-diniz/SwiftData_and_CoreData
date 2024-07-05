@@ -46,6 +46,13 @@ struct HomeView: View {
                         showEditObjectiveSheet.toggle()
                     }
             }
+            .padding(.bottom)
+            
+            Spacer()
+            
+            Text("Habits List")
+                .font(.title)
+            
             Spacer()
         }
         .sheet(isPresented: $showObjectiveSheet, content: {

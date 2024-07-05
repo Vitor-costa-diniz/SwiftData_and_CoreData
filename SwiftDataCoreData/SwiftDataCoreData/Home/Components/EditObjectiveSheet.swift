@@ -50,6 +50,9 @@ struct EditObjectiveSheet: View {
                 
                 Spacer()
             }
+            .onAppear {
+                notes = objective.notes ?? ""
+            }
             .padding(.horizontal)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
