@@ -40,12 +40,22 @@ struct HomeView: View {
             .padding(.horizontal)
             
             ForEach(viewModel.user.objectives ?? []) { objetive in
-                Text(objetive.name)
-                    .onTapGesture {
-                        selectedObjetive = objetive
-                        showEditObjectiveSheet.toggle()
-                    }
+                HStack {
+                    Text(objetive.name)
+                        .onTapGesture {
+                            selectedObjetive = objetive
+                            showEditObjectiveSheet.toggle()
+                        }
+                    Spacer()
+                    
+                    Button(action: {}, label: {
+                        Image(systemName: "plus")
+                    })
+                    
+                    Spacer()
+                }
             }
+            .padding(.horizontal)
             .padding(.bottom)
             
             Spacer()

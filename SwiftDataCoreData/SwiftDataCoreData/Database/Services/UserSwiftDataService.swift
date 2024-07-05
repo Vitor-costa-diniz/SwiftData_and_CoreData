@@ -107,6 +107,17 @@ class UserSwiftDataService: UserRepository {
         return objective.habits
     }
     
+    func fetchAllHabtis() -> [Habit]? {
+        var habit: [Habit] = []
+        do {
+            let descriptor = FetchDescriptor<Habit>(sortBy: [SortDescriptor(\.date)])
+            habit = try modelContext.fetch(descriptor)
+        } catch {
+            print("Fetch Habit failed: \(error)")
+        }
+        return habit
+    }
+    
     func deleteHabit(id: UUID) {
         do {
             let user = fetchUser()
