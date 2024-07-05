@@ -40,7 +40,6 @@ struct AddObjectiveSheet: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
                         dismiss()
-                        notes = ""
                     }, label: {
                         Text("Cancel")
                             .foregroundStyle(.red)
@@ -57,7 +56,6 @@ struct AddObjectiveSheet: View {
                         objective.notes = notes.isEmpty ? nil : notes
                         viewModel.addObjective(objective: objective)
                         dismiss()
-                        notes = ""
                     }, label: {
                         Text("Create")
                             .foregroundStyle(objective.name.isEmpty ? .gray : .blue)

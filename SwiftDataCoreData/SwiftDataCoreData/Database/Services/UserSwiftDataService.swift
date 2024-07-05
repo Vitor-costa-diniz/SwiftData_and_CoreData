@@ -116,6 +116,15 @@ class UserSwiftDataService: UserRepository {
             })
         })
         return habit
+        /// In this way, i imagine if i dont called this func on the onAppear it will not be called every time that was a change in the habits list.
+//        var habits: [Habit] = []
+//        let descriptor = FetchDescriptor<Habit>()
+//        do {
+//            habits = try modelContext.fetch(descriptor)
+//        } catch {
+//            print("Fetch habits failed: \(error)")
+//        }
+//        return habits
     }
     
     func deleteHabit(id: UUID) {
