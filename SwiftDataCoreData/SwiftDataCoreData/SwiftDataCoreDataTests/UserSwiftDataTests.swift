@@ -108,6 +108,21 @@ final class UserSwiftDataServiceTests: XCTestCase {
         let listHabits = viewModel.fetchHabits(for: mockObjetive)
 
         XCTAssertEqual(listHabits?.count, 2, "Habit count should be equal to 2")
+    }    
+    
+    func test_list_all_habits() throws {
+        let mockObjetive = Objective(name: "Testar", startDate: Date())
+        let mockHabit = Habit(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
+        let mockHabit2 = Habit(name: "Manha", date: Date(), place: "", notes: "Dormir que sou fraco")
+
+        viewModel.setUserName(name: "vitor")
+        viewModel.addObjective(objective: mockObjetive)
+        viewModel.addHabit(to: mockObjetive, habit: mockHabit)
+        viewModel.addHabit(to: mockObjetive, habit: mockHabit2)
+
+        let listHabits = viewModel.fetchAllHabits()
+
+        XCTAssertEqual(listHabits?.count, 2, "Habit count should be equal to 2")
     }
 
     func test_delete_habit() throws {
@@ -181,6 +196,10 @@ class MockViewModelSwiftData {
 
     func fetchHabits(for objective: Objective) -> [Habit]? {
         return userSwiftDataService.fetchHabits(for: objective)
+    }
+    
+    func fetchAllHabits() -> [Habit]? {
+        return userSwiftDataService.fetchAllHabtis()
     }
 
     func deleteHabit(id: UUID) {
