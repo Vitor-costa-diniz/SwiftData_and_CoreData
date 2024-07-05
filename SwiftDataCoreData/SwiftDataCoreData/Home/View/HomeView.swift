@@ -11,9 +11,11 @@ struct HomeView: View {
     @EnvironmentObject var viewModel: HomeViewModel
     @State private var text: String = ""
     @State private var selectedObjetive: Objective = Objective(name: "", startDate: Date())
+    @State private var selectedHabit: Habit = Habit(name: "", date: Date(), place: "")
     @State private var showObjectiveSheet: Bool = false
     @State private var showEditObjectiveSheet: Bool = false
     @State private var showAddHabitSheet: Bool = false
+    @State private var showEditHabitSheet: Bool = false
     
     var body: some View {
         VStack {
@@ -71,7 +73,14 @@ struct HomeView: View {
             .padding(.horizontal)
             
             ForEach(viewModel.fetchAllHabtis() ?? []) { habit in
-                Text(habit.name)
+                HStack {
+                    Text(habit.name)
+                        .onTapGesture {
+                            selectedHabit = habit
+                            showEditHabitSheet.toggle()
+                        }
+                    Spacer()
+                }
             }
             
             Spacer()
@@ -86,6 +95,11 @@ struct HomeView: View {
         })
         .sheet(isPresented: $showAddHabitSheet, content: {
             AddHabitSheet()
+        })
+        .sheet(isPresented: $showEditHabitSheet, onDismiss: {
+            selectedHabit = Habit(name: "", date: Date(), place: "")
+        }, content: {
+            EditHabitSheet(habit: selectedHabit)
         })
     }
 }

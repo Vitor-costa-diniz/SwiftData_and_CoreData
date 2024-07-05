@@ -1,15 +1,18 @@
 //
-//  AddHabitSheet.swift
+//  EditHabitSheet.swift
 //  SwiftDataCoreData
 //
-//  Created by Vitor Costa on 04/07/24.
+//  Created by Vitor Costa on 05/07/24.
 //
 
 import SwiftUI
 
-struct AddHabitSheet: View {
+struct EditHabitSheet: View {
     @Environment(\.dismiss) var dismiss
-    @State var habit: Habit = Habit(name: "", date: Date(), place: "")
+    var habit: Habit
+    @State private var name: String = ""
+    @State private var date: Date = Date()
+    @State private var place: String = ""
     @State var notes: String = ""
     @State private var selectObjective: Objective = Objective(name: "", startDate: Date())
     @EnvironmentObject var viewModel: HomeViewModel
@@ -17,7 +20,7 @@ struct AddHabitSheet: View {
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Habit name", text: $habit.name)
+                TextField("Habit name", text: $name)
                     .background(
                         Rectangle()
                             .frame(height: 50)
@@ -26,20 +29,12 @@ struct AddHabitSheet: View {
                     )
                     .padding(.bottom, 24)
                 
-                DatePicker(selection: $habit.date, displayedComponents: .date) {
+                DatePicker(selection: $date, displayedComponents: .date) {
                     Text("Select a date")
                 }
                 .padding(.bottom, 24)
                 
-                Picker("Select Objective", selection: $selectObjective) {
-                    ForEach(viewModel.fetchObjectives() ?? []) {
-                        Text($0.name)
-                            .tag($0)
-                    }
-                }
-                .padding(.bottom, 24)
-                
-                TextField("Habit place", text: $habit.place)
+                TextField("Habit place", text: $place)
                     .background(
                         Rectangle()
                             .frame(height: 50)
@@ -55,6 +50,21 @@ struct AddHabitSheet: View {
                             .foregroundStyle(Color.gray.opacity(0.3))
                             .clipShape(.rect(cornerRadius: 16))
                     )
+                    .padding(.bottom, 32)
+                
+                Button(action: {
+                    viewModel.deleteHabit(id: habit.id)
+                    dismiss()
+                }, label: {
+                    Text("Delete Habit")
+                        .foregroundStyle(.white)
+                        .background(
+                            Rectangle()
+                                .foregroundStyle(.red)
+                                .frame(width: 200, height: 40)
+                                .clipShape(.rect(cornerRadius: 8))
+                        )
+                })
                 
                 Spacer()
             }
@@ -76,25 +86,29 @@ struct AddHabitSheet: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
+                        habit.name = name
+                        habit.place = place
+                        habit.date = date
                         habit.notes = notes.isEmpty ? nil : notes
-                        viewModel.addHabit(to: selectObjective, habit: habit)
+                        viewModel.updateHabit(habit: habit)
                         dismiss()
                     }, label: {
-                        Text("Create")
-                            .foregroundStyle(habit.name.isEmpty ? .gray : .blue)
+                        Text("Edit")
+                            .foregroundStyle(name.isEmpty ? .gray : .blue)
                     })
                 }
             }
         }
         .onAppear {
-            if let objective = viewModel.fetchObjectives()?.first {
-                selectObjective = objective
-            }
+            name = habit.name
+            place = habit.place
+            date = habit.date
+            notes = habit.notes ?? ""
         }
-        .presentationDetents([.fraction(0.5)])
+        .presentationDetents([.fraction(0.7)])
     }
 }
 
-#Preview {
-    AddHabitSheet()
-}
+//#Preview {
+//    EditHabitSheet()
+//}

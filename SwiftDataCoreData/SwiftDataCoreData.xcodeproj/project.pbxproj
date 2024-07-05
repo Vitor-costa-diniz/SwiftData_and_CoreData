@@ -21,6 +21,7 @@
 		4AAB21352C372C0F00D8CAC6 /* AddObjectiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAB21342C372C0F00D8CAC6 /* AddObjectiveSheet.swift */; };
 		4AAB21382C37379100D8CAC6 /* EditObjectiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAB21372C37379100D8CAC6 /* EditObjectiveSheet.swift */; };
 		4AAB213A2C378DC800D8CAC6 /* AddHabitSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAB21392C378DC700D8CAC6 /* AddHabitSheet.swift */; };
+		4AAB213C2C37A01400D8CAC6 /* EditHabitSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAB213B2C37A01400D8CAC6 /* EditHabitSheet.swift */; };
 		4AF90D812C35ECE70020BD07 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF90D802C35ECE70020BD07 /* HomeView.swift */; };
 		4AF90D842C35ED190020BD07 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF90D832C35ED190020BD07 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		4AAB21342C372C0F00D8CAC6 /* AddObjectiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddObjectiveSheet.swift; sourceTree = "<group>"; };
 		4AAB21372C37379100D8CAC6 /* EditObjectiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditObjectiveSheet.swift; sourceTree = "<group>"; };
 		4AAB21392C378DC700D8CAC6 /* AddHabitSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitSheet.swift; sourceTree = "<group>"; };
+		4AAB213B2C37A01400D8CAC6 /* EditHabitSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHabitSheet.swift; sourceTree = "<group>"; };
 		4AF90D802C35ECE70020BD07 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4AF90D832C35ED190020BD07 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +166,7 @@
 				4AAB21342C372C0F00D8CAC6 /* AddObjectiveSheet.swift */,
 				4AAB21372C37379100D8CAC6 /* EditObjectiveSheet.swift */,
 				4AAB21392C378DC700D8CAC6 /* AddHabitSheet.swift */,
+				4AAB213B2C37A01400D8CAC6 /* EditHabitSheet.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				4A2EF38A2C2DEF4500A6E6F1 /* SwiftDataCoreDataApp.swift in Sources */,
 				4AF90D812C35ECE70020BD07 /* HomeView.swift in Sources */,
 				4AAB21352C372C0F00D8CAC6 /* AddObjectiveSheet.swift in Sources */,
+				4AAB213C2C37A01400D8CAC6 /* EditHabitSheet.swift in Sources */,
 				4A2EF3B72C2DF13D00A6E6F1 /* User.swift in Sources */,
 				4A390DBB2C2DF61D00486AE9 /* AppTabBar.swift in Sources */,
 				4AAB21382C37379100D8CAC6 /* EditObjectiveSheet.swift in Sources */,
