@@ -36,8 +36,13 @@ struct HomeView: View {
                 Text("Objectives List")
                     .font(.title)
                 Spacer()
-                Button(action: { showObjectiveSheet.toggle() }, label: {
+                Button(action: { 
+                    if viewModel.user.name != nil {
+                        showObjectiveSheet.toggle()
+                    }
+                }, label: {
                     Image(systemName: "plus")
+                        .foregroundStyle(viewModel.user.name != nil ? .blue : .gray)
                 })
             }
             .padding(.horizontal)
