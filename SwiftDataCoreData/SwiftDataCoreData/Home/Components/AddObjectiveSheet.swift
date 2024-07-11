@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddObjectiveSheet: View {
     @Environment(\.dismiss) var dismiss
-    @State var objective: Objective = Objective(name: "", startDate: Date())
+    @State var objective: ObjectiveModel = ObjectiveModel(name: "", startDate: Date())
     @State var notes: String = ""
     @EnvironmentObject var viewModel: HomeViewModel
     

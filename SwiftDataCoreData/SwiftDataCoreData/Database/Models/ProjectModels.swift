@@ -36,7 +36,7 @@ struct UserModel {
     }
 }
 
-struct ObjectiveModel {
+struct ObjectiveModel: Identifiable, Equatable, Hashable {
     var id: UUID
     var name: String
     var startDate: Date
@@ -74,9 +74,17 @@ struct ObjectiveModel {
             self.habits = nil
         }
     }
+    
+    static func == (lhs: ObjectiveModel, rhs: ObjectiveModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
-struct HabitModel {
+struct HabitModel: Identifiable {
     var id: UUID
     var name: String
     var date: Date

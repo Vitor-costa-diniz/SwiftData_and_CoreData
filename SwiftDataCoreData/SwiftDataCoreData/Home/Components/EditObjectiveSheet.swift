@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditObjectiveSheet: View {
     @Environment(\.dismiss) var dismiss
-    var objective: Objective
+    var objective: ObjectiveModel
     @State private var name: String = ""
     @State private var notes: String = ""
     @EnvironmentObject var viewModel: HomeViewModel
@@ -73,9 +73,10 @@ struct EditObjectiveSheet: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        objective.name = name
-                        objective.notes = notes.isEmpty ? nil : notes
-                        viewModel.updateObjective(objective: objective)
+                        var objectiveModel = objective
+                        objectiveModel.name = name
+                        objectiveModel.notes = notes.isEmpty ? nil : notes
+                        viewModel.updateObjective(objective: objectiveModel)
                         dismiss()
                     }, label: {
                         Text("Edit")
@@ -89,5 +90,5 @@ struct EditObjectiveSheet: View {
 }
 
 #Preview {
-    EditObjectiveSheet(objective: Objective(name: "", startDate: Date()))
+    EditObjectiveSheet(objective: ObjectiveModel(name: "", startDate: Date()))
 }

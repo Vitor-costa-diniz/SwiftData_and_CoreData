@@ -11,13 +11,13 @@ import SwiftData
 class HomeViewModel: ObservableObject {
     private var persistenceService: UserRepository?
     private var modelContext: ModelContext?
-    @Published private(set) var user: User = User()
+    @Published private(set) var user: UserModel = UserModel()
         
     init() { }
     
     func setContext(_ context: ModelContext) {
         self.modelContext = context
-        self.persistenceService = UserSwiftDataService(modelContext: context)
+        self.persistenceService = UserCoreDataService()
         if let persistence = persistenceService {
             self.user = persistence.fetchUser()
         }
@@ -25,34 +25,34 @@ class HomeViewModel: ObservableObject {
     
     func setUserName(name: String) {
         persistenceService?.setUserName(name: name)
-        self.user = persistenceService?.fetchUser() ?? User()
+        self.user = persistenceService?.fetchUser() ?? UserModel()
     }
     
-    func addObjective(objective: Objective) {
+    func addObjective(objective: ObjectiveModel) {
         persistenceService?.addObjective(objective: objective)
     }
 
-    func updateObjective(objective: Objective) {
+    func updateObjective(objective: ObjectiveModel) {
         persistenceService?.updateObjective(objective: objective)
     }
 
-    func fetchObjectives() -> [Objective]? {
+    func fetchObjectives() -> [ObjectiveModel]? {
         return persistenceService?.fetchObjectives()
     }
 
-    func deleteObjective(objective: Objective) {
+    func deleteObjective(objective: ObjectiveModel) {
         persistenceService?.deleteObjective(objective: objective)
     }
     
-    func addHabit(to objective: Objective, habit: Habit) {
+    func addHabit(to objective: ObjectiveModel, habit: HabitModel) {
         persistenceService?.addHabit(to: objective, habit: habit)
     }
 
-    func updateHabit(habit: Habit) {
+    func updateHabit(habit: HabitModel) {
         persistenceService?.updateHabit(habit: habit)
     }
     
-    func fetchAllHabtis() -> [Habit]? {
+    func fetchAllHabtis() -> [HabitModel]? {
         return persistenceService?.fetchAllHabtis()
     }
     

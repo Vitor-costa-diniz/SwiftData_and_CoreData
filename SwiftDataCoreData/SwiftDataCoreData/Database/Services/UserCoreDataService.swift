@@ -12,18 +12,19 @@ class UserCoreDataService: UserRepository {
     func fetchUser() -> UserModel {
         let context = CoreDataStack.shared.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
+        var userModel: UserModel = UserModel()
         
         do {
             if let userCoreData = try context.fetch(fetchRequest).first {
-                return UserModel(userCoreData: userCoreData)
+                userModel = UserModel(userCoreData: userCoreData)
             }
         } catch {
             return UserModel()
         }
+        return userModel
     }
     
     func setUserName(name: String) {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
         var user = fetchUser()
         
         user.name = name

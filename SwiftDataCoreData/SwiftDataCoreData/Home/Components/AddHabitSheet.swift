@@ -9,9 +9,9 @@ import SwiftUI
 
 struct AddHabitSheet: View {
     @Environment(\.dismiss) var dismiss
-    @State var habit: Habit = Habit(name: "", date: Date(), place: "")
+    @State var habit: HabitModel = HabitModel(name: "", date: Date(), place: "")
     @State var notes: String = ""
-    @State private var selectObjective: Objective = Objective(name: "", startDate: Date())
+    @State private var selectObjective: ObjectiveModel = ObjectiveModel(name: "", startDate: Date())
     @EnvironmentObject var viewModel: HomeViewModel
     
     var body: some View {

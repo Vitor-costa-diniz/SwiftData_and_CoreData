@@ -10,8 +10,8 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var viewModel: HomeViewModel
     @State private var text: String = ""
-    @State private var selectedObjetive: Objective?
-    @State private var selectedHabit: Habit?
+    @State private var selectedObjetive: ObjectiveModel?
+    @State private var selectedHabit: HabitModel?
     @State private var showObjectiveSheet: Bool = false
     @State private var showEditObjectiveSheet: Bool = false
     @State private var showAddHabitSheet: Bool = false

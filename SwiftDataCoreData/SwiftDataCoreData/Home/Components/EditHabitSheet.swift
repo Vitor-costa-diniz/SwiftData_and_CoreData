@@ -9,12 +9,12 @@ import SwiftUI
 
 struct EditHabitSheet: View {
     @Environment(\.dismiss) var dismiss
-    var habit: Habit
+    var habit: HabitModel
     @State private var name: String = ""
     @State private var date: Date = Date()
     @State private var place: String = ""
     @State var notes: String = ""
-    @State private var selectObjective: Objective = Objective(name: "", startDate: Date())
+    @State private var selectObjective: ObjectiveModel = ObjectiveModel(name: "", startDate: Date())
     @EnvironmentObject var viewModel: HomeViewModel
     
     var body: some View {
@@ -86,11 +86,12 @@ struct EditHabitSheet: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        habit.name = name
-                        habit.place = place
-                        habit.date = date
-                        habit.notes = notes.isEmpty ? nil : notes
-                        viewModel.updateHabit(habit: habit)
+                        var habitModel = habit
+                        habitModel.name = name
+                        habitModel.place = place
+                        habitModel.date = date
+                        habitModel.notes = notes.isEmpty ? nil : notes
+                        viewModel.updateHabit(habit: habitModel)
                         dismiss()
                     }, label: {
                         Text("Edit")
