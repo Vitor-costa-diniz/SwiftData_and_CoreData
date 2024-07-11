@@ -17,7 +17,7 @@ class HomeViewModel: ObservableObject {
     
     func setContext(_ context: ModelContext) {
         self.modelContext = context
-        self.persistenceService = UserCoreDataService()
+        self.persistenceService = UserSwiftDataService(modelContext: context)
         if let persistence = persistenceService {
             self.user = persistence.fetchUser()
         }
@@ -35,6 +35,7 @@ class HomeViewModel: ObservableObject {
 
     func updateObjective(objective: ObjectiveModel) {
         persistenceService?.updateObjective(objective: objective)
+        self.user = persistenceService?.fetchUser() ?? UserModel()
     }
 
     func fetchObjectives() -> [ObjectiveModel]? {
@@ -52,6 +53,7 @@ class HomeViewModel: ObservableObject {
 
     func updateHabit(habit: HabitModel) {
         persistenceService?.updateHabit(habit: habit)
+        self.user = persistenceService?.fetchUser() ?? UserModel()
     }
     
     func fetchAllHabtis() -> [HabitModel]? {

@@ -47,7 +47,7 @@ struct HomeView: View {
             }
             .padding(.horizontal)
             
-            ForEach(viewModel.fetchObjectives() ?? []) { objetive in
+            ForEach(viewModel.user.objectives ?? []) { objetive in
                 HStack {
                     Text(objetive.name)
                         .onTapGesture {

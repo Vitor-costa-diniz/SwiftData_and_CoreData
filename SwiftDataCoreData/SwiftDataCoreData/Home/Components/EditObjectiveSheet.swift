@@ -73,7 +73,7 @@ struct EditObjectiveSheet: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        var objectiveModel = objective
+                        let objectiveModel = objective
                         objectiveModel.name = name
                         objectiveModel.notes = notes.isEmpty ? nil : notes
                         viewModel.updateObjective(objective: objectiveModel)

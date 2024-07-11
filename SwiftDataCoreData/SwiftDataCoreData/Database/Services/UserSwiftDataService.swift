@@ -92,19 +92,13 @@ class UserSwiftDataService: UserRepository {
         }
         
         do {
-            for objSwiftData in objectives {
-                if objSwiftData.id == objective.id {
-                    let objMock = objective.toObjectiveSwiftData()
-                    objSwiftData.id = objMock.id
-                    objSwiftData.name = objMock.name
-                    objSwiftData.startDate = objMock.startDate
-                    objSwiftData.notes = objMock.notes
-                    objSwiftData.habits = objMock.habits
-                    
-                    modelContext.insert(objSwiftData)
-                    try modelContext.save()
-                    return
-                }
+            if let objSwiftData = objectives.first(where: { $0.id == objective.id }) {
+                objSwiftData.name = objective.name
+                objSwiftData.startDate = objective.startDate
+                objSwiftData.notes = objective.notes
+                objSwiftData.habits = objective.habits?.map { $0.toHabitSwiftData() }
+                
+                try modelContext.save()
             }
         } catch {
             print("Failed to update objective: \(error)")
@@ -169,14 +163,19 @@ class UserSwiftDataService: UserRepository {
     }
     
     func fetchAllHabtis() -> [HabitModel]? {
-        var habit: [HabitModel] = []
+        var habits: [HabitModel] = []
         let user = fetchUSerSwiftData()
-        user.objectives?.forEach({ objective in
-            objective.habits?.forEach({
-                habit.append(HabitModel(habitSwiftData: $0))
-            })
-        })
-        return habit
+        
+        user.objectives?.forEach { objective in
+            objective.habits?.forEach { habitSwiftData in
+                let habitModel = HabitModel(habitSwiftData: habitSwiftData)
+                if !habits.contains(where: { $0.id == habitModel.id }) {
+                    habits.append(habitModel)
+                }
+            }
+        }
+        
+        return habits
         /// In this way, i imagine if i dont called this func on the onAppear it will not be called every time that was a change in the habits list.
 //        var habits: [Habit] = []
 //        let descriptor = FetchDescriptor<Habit>()
