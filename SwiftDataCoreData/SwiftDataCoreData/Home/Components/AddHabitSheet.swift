@@ -97,4 +97,5 @@ struct AddHabitSheet: View {
 
 #Preview {
     AddHabitSheet()
+        .environmentObject(HomeViewModel())
 }

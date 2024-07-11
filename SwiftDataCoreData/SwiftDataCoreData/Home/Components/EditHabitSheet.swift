@@ -110,6 +110,7 @@ struct EditHabitSheet: View {
     }
 }
 
-//#Preview {
-//    EditHabitSheet()
-//}
+#Preview {
+    EditHabitSheet(habit: HabitModel(name: "", date: Date(), place: ""))
+        .environmentObject(HomeViewModel())
+}

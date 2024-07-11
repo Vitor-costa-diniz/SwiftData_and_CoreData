@@ -69,4 +69,5 @@ struct AddObjectiveSheet: View {
 
 #Preview {
     AddObjectiveSheet()
+        .environmentObject(HomeViewModel())
 }
