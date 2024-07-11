@@ -9,7 +9,9 @@ import SwiftUI
 
 struct AddHabitSheet: View {
     @Environment(\.dismiss) var dismiss
-    @State var habit: HabitModel = HabitModel(name: "", date: Date(), place: "")
+    @State var name: String = ""
+    @State var date: Date = Date()
+    @State var place: String = ""
     @State var notes: String = ""
     @State private var selectObjective: ObjectiveModel = ObjectiveModel(name: "", startDate: Date())
     @EnvironmentObject var viewModel: HomeViewModel
@@ -17,7 +19,7 @@ struct AddHabitSheet: View {
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Habit name", text: $habit.name)
+                TextField("Habit name", text: $name)
                     .background(
                         Rectangle()
                             .frame(height: 50)
@@ -26,7 +28,7 @@ struct AddHabitSheet: View {
                     )
                     .padding(.bottom, 24)
                 
-                DatePicker(selection: $habit.date, displayedComponents: .date) {
+                DatePicker(selection: $date, displayedComponents: .date) {
                     Text("Select a date")
                 }
                 .padding(.bottom, 24)
@@ -39,7 +41,7 @@ struct AddHabitSheet: View {
                 }
                 .padding(.bottom, 24)
                 
-                TextField("Habit place", text: $habit.place)
+                TextField("Habit place", text: $place)
                     .background(
                         Rectangle()
                             .frame(height: 50)
@@ -76,12 +78,15 @@ struct AddHabitSheet: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
+                        let habit = HabitModel(name: name,
+                                               date: date,
+                                               place: place)
                         habit.notes = notes.isEmpty ? nil : notes
                         viewModel.addHabit(to: selectObjective, habit: habit)
                         dismiss()
                     }, label: {
                         Text("Create")
-                            .foregroundStyle(habit.name.isEmpty ? .gray : .blue)
+                            .foregroundStyle(name.isEmpty ? .gray : .blue)
                     })
                 }
             }

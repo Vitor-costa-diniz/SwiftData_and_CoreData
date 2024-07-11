@@ -111,10 +111,10 @@ class UserSwiftDataService: UserRepository {
     
     func fetchAllHabtis() -> [HabitModel]? {
         var habit: [HabitModel] = []
-        let user = fetchUser()
+        let user = fetchUSerSwiftData()
         user.objectives?.forEach({ objective in
             objective.habits?.forEach({
-                habit.append($0)
+                habit.append(HabitModel(habitSwiftData: $0))
             })
         })
         return habit

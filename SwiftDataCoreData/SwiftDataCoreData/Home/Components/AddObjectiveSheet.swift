@@ -54,7 +54,7 @@ struct AddObjectiveSheet: View {
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
                         if !name.isEmpty {
-                            var objective = ObjectiveModel(name: name, startDate: Date())
+                            let objective = ObjectiveModel(name: name, startDate: Date())
                             objective.notes = notes.isEmpty ? nil : notes
                             viewModel.addObjective(objective: objective)
                             dismiss()

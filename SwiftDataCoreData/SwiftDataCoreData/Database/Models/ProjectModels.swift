@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-struct UserModel {
+class UserModel {
     var name: String?
     var objectives: [ObjectiveModel]?
     
@@ -36,7 +36,7 @@ struct UserModel {
     }
 }
 
-struct ObjectiveModel: Identifiable, Equatable, Hashable {
+class ObjectiveModel: Identifiable, Equatable, Hashable {
     var id: UUID
     var name: String
     var startDate: Date
@@ -84,7 +84,7 @@ struct ObjectiveModel: Identifiable, Equatable, Hashable {
     }
 }
 
-struct HabitModel: Identifiable {
+class HabitModel: Identifiable {
     var id: UUID
     var name: String
     var date: Date
@@ -136,6 +136,7 @@ extension ObjectiveModel {
     func toObjectiveSwiftData() -> ObjectiveSwiftData {
         let habitsSwiftData = self.habits?.map { $0.toHabitSwiftData() }
         return ObjectiveSwiftData(
+            id: self.id,
             name: self.name,
             startDate: self.startDate,
             notes: self.notes,
@@ -157,6 +158,7 @@ extension HabitModel {
     
     func toHabitSwiftData() -> HabitSwiftData {
         return HabitSwiftData(
+            id: self.id,
             name: self.name,
             date: self.date,
             place: self.place,

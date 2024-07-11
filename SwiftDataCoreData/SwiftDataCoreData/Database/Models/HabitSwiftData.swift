@@ -10,16 +10,18 @@ import SwiftData
 
 @Model
 class HabitSwiftData {
-    @Attribute(.unique) var id: UUID = UUID()
+    var id: UUID
     var name: String
     var date: Date
     var place: String
     var notes: String?
     
-    init(name: String,
+    init(id: UUID,
+         name: String,
          date: Date,
          place: String,
          notes: String? = nil) {
+        self.id = id
         self.name = name
         self.date = date
         self.place = place

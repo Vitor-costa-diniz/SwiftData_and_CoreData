@@ -40,7 +40,7 @@ final class UserSwiftDataServiceTests: XCTestCase {
     }
 
     func test_update_objetive() throws {
-        var mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
+        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
         viewModel.setUserName(name: "vitor")
         viewModel.addObjective(objective: mockObjetive)
         XCTAssertEqual(viewModel.user.objectives?.first?.name, "Testar", "Objetive name should be Testar")
@@ -52,7 +52,7 @@ final class UserSwiftDataServiceTests: XCTestCase {
     }
 
     func test_list_objetives() throws {
-        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
+        let mockObjetive = ObjectiveModel(name: "Teste add List", startDate: Date())
         viewModel.setUserName(name: "vitor")
         viewModel.addObjective(objective: mockObjetive)
 
@@ -61,18 +61,18 @@ final class UserSwiftDataServiceTests: XCTestCase {
     }
 
     func test_delete_objetive() throws {
-        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
+        let mockObjetive = ObjectiveModel(name: "Test delete obj", startDate: Date())
         viewModel.setUserName(name: "vitor")
         viewModel.addObjective(objective: mockObjetive)
-        XCTAssertEqual(viewModel.user.objectives?.first?.name, "Testar", "Objetive name should be Testar")
-
+        XCTAssertEqual(viewModel.user.objectives?.first?.name, "Test delete obj", "Objetive name should be Test delete obj")
+        
         viewModel.deleteObjective(objective: mockObjetive)
         XCTAssertNil(viewModel.user.objectives?.first, "Objective should be nil")
     }
 
     func test_add_habit() throws {
         let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
-        let mockHabit = HabitModel(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
+        let mockHabit = HabitModel(name: "Noite", date: Date(), place: "", notes: "Test Notes")
         viewModel.setUserName(name: "vitor")
         viewModel.addObjective(objective: mockObjetive)
 
@@ -83,7 +83,7 @@ final class UserSwiftDataServiceTests: XCTestCase {
 
     func test_update_habit() throws {
         let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
-        var mockHabit = HabitModel(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
+        let mockHabit = HabitModel(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
         viewModel.setUserName(name: "vitor")
         viewModel.addObjective(objective: mockObjetive)
         viewModel.addHabit(to: mockObjetive, habit: mockHabit)
@@ -177,7 +177,7 @@ class MockViewModelSwiftData {
 
     func updateObjective(objective: ObjectiveModel) {
         userSwiftDataService.updateObjective(objective: objective)
-        fetchData()
+//        fetchData()
     }
 
     func fetchObjectives() -> [ObjectiveModel]? {
@@ -186,14 +186,17 @@ class MockViewModelSwiftData {
 
     func deleteObjective(objective: ObjectiveModel) {
         userSwiftDataService.deleteObjective(objective: objective)
+        fetchData()
     }
 
     func addHabit(to objective: ObjectiveModel, habit: HabitModel) {
         userSwiftDataService.addHabit(to: objective, habit: habit)
+        fetchData()
     }
 
     func updateHabit(habit: HabitModel) {
         userSwiftDataService.updateHabit(habit: habit)
+        fetchData()
     }
 
     func fetchHabits(for objective: ObjectiveModel) -> [HabitModel]? {
@@ -206,5 +209,6 @@ class MockViewModelSwiftData {
 
     func deleteHabit(id: UUID) {
         userSwiftDataService.deleteHabit(id: id)
+        fetchData()
     }
 }
