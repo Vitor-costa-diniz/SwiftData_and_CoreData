@@ -9,17 +9,17 @@ import Foundation
 import SwiftData
 
 @Model
-class Objective {
+class ObjectiveSwiftData {
     @Attribute(.unique) var id: UUID = UUID()
     var name: String
     var startDate: Date
     var notes: String?
-    @Relationship(deleteRule: .cascade) var habits: [Habit]?
+    @Relationship(deleteRule: .cascade) var habits: [HabitSwiftData]?
     
     init(name: String,
          startDate: Date,
          notes: String? = nil,
-         habits: [Habit]? = nil) {
+         habits: [HabitSwiftData]? = nil) {
         self.name = name
         self.notes = notes
         self.startDate = startDate

@@ -24,6 +24,15 @@ struct UserModel {
             self.objectives = nil
         }
     }
+    
+    init(userSwiftData: UserSwiftData) {
+        self.name = userSwiftData.name
+        if let objectivesArray = userSwiftData.objectives {
+            self.objectives = objectivesArray.map { ObjectiveModel(objectiveSwiftData: $0) }
+        } else {
+            self.objectives = nil
+        }
+    }
 }
 
 struct ObjectiveModel {
@@ -52,6 +61,18 @@ struct ObjectiveModel {
             self.habits = nil
         }
     }
+    
+    init(objectiveSwiftData: ObjectiveSwiftData) {
+        self.id = objectiveSwiftData.id
+        self.name = objectiveSwiftData.name
+        self.startDate = objectiveSwiftData.startDate
+        self.notes = objectiveSwiftData.notes
+        if let habitsArray = objectiveSwiftData.habits {
+            self.habits = habitsArray.map { HabitModel(habitSwiftData: $0) }
+        } else {
+            self.habits = nil
+        }
+    }
 }
 
 struct HabitModel {
@@ -75,5 +96,13 @@ struct HabitModel {
         self.date = habitCoreData.date ?? Date()
         self.place = habitCoreData.place ?? ""
         self.notes = habitCoreData.notes
+    }
+    
+    init(habitSwiftData: HabitSwiftData) {
+        self.id = habitSwiftData.id
+        self.name = habitSwiftData.name
+        self.date = habitSwiftData.date
+        self.place = habitSwiftData.place
+        self.notes = habitSwiftData.notes
     }
 }

@@ -8,15 +8,15 @@
 import Foundation
 
 protocol UserRepository {
-    func fetchUser() -> User
+    func fetchUser() -> UserModel
     func setUserName(name: String)
-    func addObjective(objective: Objective)
-    func updateObjective(objective: Objective)
-    func fetchObjectives() -> [Objective]?
-    func deleteObjective(objective: Objective)
-    func addHabit(to objective: Objective, habit: Habit)
-    func updateHabit(habit: Habit)
-    func fetchHabits(for objective: Objective) -> [Habit]?
-    func fetchAllHabtis() -> [Habit]?
+    func addObjective(objective: ObjectiveModel)
+    func updateObjective(objective: ObjectiveModel)
+    func fetchObjectives() -> [ObjectiveModel]?
+    func deleteObjective(objective: ObjectiveModel)
+    func addHabit(to objective: ObjectiveModel, habit: HabitModel)
+    func updateHabit(habit: HabitModel)
+    func fetchHabits(for objective: ObjectiveModel) -> [HabitModel]?
+    func fetchAllHabtis() -> [HabitModel]?
     func deleteHabit(id: UUID)
 }

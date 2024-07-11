@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class Habit {
+class HabitSwiftData {
     @Attribute(.unique) var id: UUID = UUID()
     var name: String
     var date: Date
