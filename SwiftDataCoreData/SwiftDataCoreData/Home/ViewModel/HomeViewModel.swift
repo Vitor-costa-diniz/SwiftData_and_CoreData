@@ -17,7 +17,7 @@ class HomeViewModel: ObservableObject {
     
     func setContext(_ context: ModelContext) {
         self.modelContext = context
-        self.persistenceService = UserSwiftDataService(modelContext: context)
+        self.persistenceService = UserCoreDataService()
         if let persistence = persistenceService {
             self.user = persistence.fetchUser()
         }
@@ -60,6 +60,7 @@ class HomeViewModel: ObservableObject {
     
     func deleteHabit(id: UUID) {
         persistenceService?.deleteHabit(id: id)
+        fetchData()
     }
     
     private func fetchData() {

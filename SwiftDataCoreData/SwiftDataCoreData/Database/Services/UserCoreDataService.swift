@@ -145,14 +145,15 @@ extension UserCoreDataService {
     private func fetchUserCoreData() -> UserCoreData {
         let context = CoreDataStack.shared.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
-        var userCoreData: UserCoreData = UserCoreData()
         
         do {
             if let user = try context.fetch(fetchRequest).first {
-                userCoreData = user
+                return user
+            } else {
+                return UserCoreData(context: context)
             }
-            return userCoreData
         } catch {
+            print("Error fetching user: \(error)")
             return UserCoreData()
         }
     }

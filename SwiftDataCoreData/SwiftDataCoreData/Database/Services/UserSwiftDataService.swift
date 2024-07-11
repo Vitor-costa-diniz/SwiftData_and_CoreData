@@ -50,18 +50,67 @@ class UserSwiftDataService: UserRepository {
         }
     }
 
+//    func updateObjective(objective: ObjectiveModel) {
+//        let user = fetchUSerSwiftData()
+//        let objectives = user.objectives
+//        let objectSwiftData = objective.toObjectiveSwiftData()
+//        do {
+//            try objectives?.forEach({ obje in
+//                if (obje.id == objectSwiftData.id) {
+//                    modelContext.insert(objectSwiftData)
+//                    try modelContext.save()
+//                }
+//            })
+////            let descriptor = FetchDescriptor<ObjectiveSwiftData>()
+////            let objectives = try modelContext.fetch(descriptor)
+////            
+////            try objectives.forEach({
+////                if (objective.id == $0.id) {
+////                    modelContext.delete($0)
+////                    try modelContext.save()
+////                }
+////            })
+////            {
+////                modelContext.delete(habitToDelete)
+////                try modelContext.save()
+////            }
+////            if var objectiveToUpdate = modelContext.model(for: objectiveSwiftData.id) as? ObjectiveSwiftData {
+////                objectiveToUpdate = objectiveSwiftData
+////                modelContext.insert(objectiveToUpdate)
+////                try modelContext.save()
+////            }
+//        } catch {
+//            print("Failed to update objective: \(error)")
+//        }
+//    }
+    
     func updateObjective(objective: ObjectiveModel) {
-        let objectiveSwiftData = objective.toObjectiveSwiftData()
+        let user = fetchUSerSwiftData()
+        
+        guard let objectives = user.objectives else {
+            return
+        }
+        
         do {
-            if var objectiveToUpdate = modelContext.model(for: objectiveSwiftData.id) as? ObjectiveSwiftData {
-                objectiveToUpdate = objectiveSwiftData
-                modelContext.insert(objectiveToUpdate)
-                try modelContext.save()
+            for objSwiftData in objectives {
+                if objSwiftData.id == objective.id {
+                    let objMock = objective.toObjectiveSwiftData()
+                    objSwiftData.id = objMock.id
+                    objSwiftData.name = objMock.name
+                    objSwiftData.startDate = objMock.startDate
+                    objSwiftData.notes = objMock.notes
+                    objSwiftData.habits = objMock.habits
+                    
+                    modelContext.insert(objSwiftData)
+                    try modelContext.save()
+                    return
+                }
             }
         } catch {
             print("Failed to update objective: \(error)")
         }
     }
+
     
     func fetchObjectives() -> [ObjectiveModel]? {
         let user = fetchUser()
@@ -106,7 +155,17 @@ class UserSwiftDataService: UserRepository {
     }
     
     func fetchHabits(for objective: ObjectiveModel) -> [HabitModel]? {
-        return objective.habits
+        var habit: [HabitModel] = []
+        let user = fetchUSerSwiftData()
+        
+        user.objectives?.forEach({ objec in
+            if (objec.id == objective.id) {
+                objec.habits?.forEach({
+                    habit.append(HabitModel(habitSwiftData: $0))
+                })
+            }
+        })
+        return habit
     }
     
     func fetchAllHabtis() -> [HabitModel]? {
@@ -131,7 +190,7 @@ class UserSwiftDataService: UserRepository {
     
     func deleteHabit(id: UUID) {
         do {
-            var user = fetchUser()
+            let user = fetchUSerSwiftData()
             for (index, objective) in (user.objectives ?? []).enumerated() {
                 user.objectives?[index].habits = objective.habits?.filter { $0.id != id }
             }
