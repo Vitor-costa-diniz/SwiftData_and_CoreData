@@ -132,6 +132,16 @@ extension ObjectiveModel {
         }
         return objectiveCoreData
     }
+    
+    func toObjectiveSwiftData() -> ObjectiveSwiftData {
+        let habitsSwiftData = self.habits?.map { $0.toHabitSwiftData() }
+        return ObjectiveSwiftData(
+            name: self.name,
+            startDate: self.startDate,
+            notes: self.notes,
+            habits: habitsSwiftData
+        )
+    }
 }
 
 extension HabitModel {
@@ -143,5 +153,14 @@ extension HabitModel {
         habitCoreData.place = self.place
         habitCoreData.notes = self.notes
         return habitCoreData
+    }
+    
+    func toHabitSwiftData() -> HabitSwiftData {
+        return HabitSwiftData(
+            name: self.name,
+            date: self.date,
+            place: self.place,
+            notes: self.notes
+        )
     }
 }

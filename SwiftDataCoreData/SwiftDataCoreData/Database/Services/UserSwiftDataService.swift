@@ -15,12 +15,12 @@ class UserSwiftDataService: UserRepository {
         self.modelContext = modelContext
     }
     
-    func fetchUser() -> User {
-        var user = User()
+    func fetchUser() -> UserModel {
+        var user = UserModel()
         do {
-            let descriptor = FetchDescriptor<User>(sortBy: [SortDescriptor(\.name)])
+            let descriptor = FetchDescriptor<UserSwiftData>(sortBy: [SortDescriptor(\.name)])
             if let fetchedUser = try modelContext.fetch(descriptor).first {
-                user = fetchedUser
+                user = UserModel(userSwiftData: fetchedUser)
             }
         } catch {
             print("Fetch user failed: \(error)")
@@ -30,7 +30,7 @@ class UserSwiftDataService: UserRepository {
     
     func setUserName(name: String) {
         do {
-            let user = fetchUser()
+            let user = fetchUSerSwiftData()
             user.name = name
             modelContext.insert(user)
             try modelContext.save()
@@ -39,21 +39,22 @@ class UserSwiftDataService: UserRepository {
         }
     }
     
-    func addObjective(objective: Objective) {
+    func addObjective(objective: ObjectiveModel) {
         do {
-            let user = fetchUser()
-            user.objectives?.append(objective)
-            modelContext.insert(objective)
+            let user = fetchUSerSwiftData()
+            user.objectives?.append(objective.toObjectiveSwiftData())
+            modelContext.insert(objective.toObjectiveSwiftData())
             try modelContext.save()
         } catch {
             print("Failed to add objective: \(error)")
         }
     }
 
-    func updateObjective(objective: Objective) {
+    func updateObjective(objective: ObjectiveModel) {
+        let objectiveSwiftData = objective.toObjectiveSwiftData()
         do {
-            if var objectiveToUpdate = modelContext.model(for: objective.id) as? Objective {
-                objectiveToUpdate = objective
+            if var objectiveToUpdate = modelContext.model(for: objectiveSwiftData.id) as? ObjectiveSwiftData {
+                objectiveToUpdate = objectiveSwiftData
                 modelContext.insert(objectiveToUpdate)
                 try modelContext.save()
             }
@@ -62,28 +63,28 @@ class UserSwiftDataService: UserRepository {
         }
     }
     
-    func fetchObjectives() -> [Objective]? {
+    func fetchObjectives() -> [ObjectiveModel]? {
         let user = fetchUser()
         return user.objectives
     }
     
-    func deleteObjective(objective: Objective) {
+    func deleteObjective(objective: ObjectiveModel) {
         do {
-            let user = fetchUser()
+            let user = fetchUSerSwiftData()
             user.objectives = user.objectives?.filter { $0.id != objective.id }
-            modelContext.delete(objective)
+            modelContext.delete(objective.toObjectiveSwiftData())
             try modelContext.save()
         } catch {
             print("Failed to delete objective: \(error)")
         }
     }
     
-    func addHabit(to objective: Objective, habit: Habit) {
+    func addHabit(to objective: ObjectiveModel, habit: HabitModel) {
         do {
-            let user = fetchUser()
+            let user = fetchUSerSwiftData()
             if let index = user.objectives?.firstIndex(where: { $0.id == objective.id }) {
-                user.objectives?[index].habits?.append(habit)
-                modelContext.insert(habit)
+                user.objectives?[index].habits?.append(habit.toHabitSwiftData())
+                modelContext.insert(habit.toHabitSwiftData())
                 try modelContext.save()
             }
         } catch {
@@ -91,10 +92,11 @@ class UserSwiftDataService: UserRepository {
         }
     }
     
-    func updateHabit(habit: Habit) {
+    func updateHabit(habit: HabitModel) {
+        let habitSwiftData = habit.toHabitSwiftData()
         do {
-            if var habitToUpdate = modelContext.model(for: habit.id) as? Habit {
-                habitToUpdate = habit
+            if var habitToUpdate = modelContext.model(for: habitSwiftData.id) as? HabitSwiftData {
+                habitToUpdate = habitSwiftData
                 modelContext.insert(habitToUpdate)
                 try modelContext.save()
             }
@@ -103,12 +105,12 @@ class UserSwiftDataService: UserRepository {
         }
     }
     
-    func fetchHabits(for objective: Objective) -> [Habit]? {
+    func fetchHabits(for objective: ObjectiveModel) -> [HabitModel]? {
         return objective.habits
     }
     
-    func fetchAllHabtis() -> [Habit]? {
-        var habit: [Habit] = []
+    func fetchAllHabtis() -> [HabitModel]? {
+        var habit: [HabitModel] = []
         let user = fetchUser()
         user.objectives?.forEach({ objective in
             objective.habits?.forEach({
@@ -129,11 +131,11 @@ class UserSwiftDataService: UserRepository {
     
     func deleteHabit(id: UUID) {
         do {
-            let user = fetchUser()
+            var user = fetchUser()
             for (index, objective) in (user.objectives ?? []).enumerated() {
                 user.objectives?[index].habits = objective.habits?.filter { $0.id != id }
             }
-            let descriptor = FetchDescriptor<Habit>(predicate: #Predicate { $0.id == id })
+            let descriptor = FetchDescriptor<HabitSwiftData>(predicate: #Predicate { $0.id == id })
             if let habitToDelete = try modelContext.fetch(descriptor).first {
                 modelContext.delete(habitToDelete)
                 try modelContext.save()
@@ -141,6 +143,21 @@ class UserSwiftDataService: UserRepository {
         } catch {
             print("Failed to delete habit: \(error)")
         }
+    }
+}
+
+extension UserSwiftDataService {
+    private func fetchUSerSwiftData() -> UserSwiftData {
+        var user = UserSwiftData()
+        do {
+            let descriptor = FetchDescriptor<UserSwiftData>(sortBy: [SortDescriptor(\.name)])
+            if let fetchedUser = try modelContext.fetch(descriptor).first {
+                user = fetchedUser
+            }
+        } catch {
+            print("Fetch user failed: \(error)")
+        }
+        return user
     }
 }
 
