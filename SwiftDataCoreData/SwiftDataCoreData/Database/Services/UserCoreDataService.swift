@@ -25,8 +25,7 @@ class UserCoreDataService: UserRepository {
     }
     
     func setUserName(name: String) {
-        var user = fetchUser()
-        
+        let user = fetchUserCoreData()
         user.name = name
         
         CoreDataStack.shared.saveContext()
