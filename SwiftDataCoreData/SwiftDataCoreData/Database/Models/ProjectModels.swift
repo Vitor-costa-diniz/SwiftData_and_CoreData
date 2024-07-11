@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 struct UserModel {
     var name: String?
@@ -104,5 +105,35 @@ struct HabitModel {
         self.date = habitSwiftData.date
         self.place = habitSwiftData.place
         self.notes = habitSwiftData.notes
+    }
+}
+
+extension ObjectiveModel {
+    func toObjectiveCoreData(context: NSManagedObjectContext) -> ObjectiveCoreData {
+        let objectiveCoreData = ObjectiveCoreData(context: context)
+        objectiveCoreData.id = self.id
+        objectiveCoreData.name = self.name
+        objectiveCoreData.startDate = self.startDate
+        objectiveCoreData.notes = self.notes
+        
+        if let habits = self.habits {
+            for habit in habits {
+                let habitCoreData = habit.toHabitCoreData(context: context)
+                objectiveCoreData.addToHabits(habitCoreData)
+            }
+        }
+        return objectiveCoreData
+    }
+}
+
+extension HabitModel {
+    func toHabitCoreData(context: NSManagedObjectContext) -> HabitCoreData {
+        let habitCoreData = HabitCoreData(context: context)
+        habitCoreData.id = self.id
+        habitCoreData.name = self.name
+        habitCoreData.date = self.date
+        habitCoreData.place = self.place
+        habitCoreData.notes = self.notes
+        return habitCoreData
     }
 }
