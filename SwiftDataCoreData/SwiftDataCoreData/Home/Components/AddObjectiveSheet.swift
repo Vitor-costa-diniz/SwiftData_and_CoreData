@@ -9,14 +9,14 @@ import SwiftUI
 
 struct AddObjectiveSheet: View {
     @Environment(\.dismiss) var dismiss
-    @State var objective: ObjectiveModel = ObjectiveModel(name: "", startDate: Date())
+    @State var name: String = ""
     @State var notes: String = ""
     @EnvironmentObject var viewModel: HomeViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Objetive name", text: $objective.name)
+                TextField("Objetive name", text: $name)
                     .background(
                         Rectangle()
                             .frame(height: 50)
@@ -53,12 +53,15 @@ struct AddObjectiveSheet: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        objective.notes = notes.isEmpty ? nil : notes
-                        viewModel.addObjective(objective: objective)
-                        dismiss()
+                        if !name.isEmpty {
+                            var objective = ObjectiveModel(name: name, startDate: Date())
+                            objective.notes = notes.isEmpty ? nil : notes
+                            viewModel.addObjective(objective: objective)
+                            dismiss()
+                        }
                     }, label: {
                         Text("Create")
-                            .foregroundStyle(objective.name.isEmpty ? .gray : .blue)
+                            .foregroundStyle(name.isEmpty ? .gray : .blue)
                     })
                 }
             }
