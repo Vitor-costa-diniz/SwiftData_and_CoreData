@@ -177,6 +177,7 @@ class MockViewModelSwiftData {
 
     func updateObjective(objective: ObjectiveModel) {
         userSwiftDataService.updateObjective(objective: objective)
+        fetchData()
     }
 
     func fetchObjectives() -> [ObjectiveModel]? {

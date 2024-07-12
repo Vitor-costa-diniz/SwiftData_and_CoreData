@@ -105,10 +105,14 @@ class UserSwiftDataService: UserRepository {
         }
     }
 
-    
     func fetchObjectives() -> [ObjectiveModel]? {
-        let user = fetchUser()
-        return user.objectives
+        let user = fetchUSerSwiftData()
+        var objectivesList: [ObjectiveModel] = []
+        
+        user.objectives?.forEach({
+            objectivesList.append(ObjectiveModel(objectiveSwiftData: $0))
+        })
+        return objectivesList
     }
     
     func deleteObjective(objective: ObjectiveModel) {
@@ -136,17 +140,27 @@ class UserSwiftDataService: UserRepository {
     }
     
     func updateHabit(habit: HabitModel) {
-        let habitSwiftData = habit.toHabitSwiftData()
+        let user = fetchUSerSwiftData()
+        
+        guard let objectives = user.objectives else {
+            return
+        }
+        
         do {
-            if var habitToUpdate = modelContext.model(for: habitSwiftData.id) as? HabitSwiftData {
-                habitToUpdate = habitSwiftData
-                modelContext.insert(habitToUpdate)
-                try modelContext.save()
+            for objective in objectives {
+                if let habitSwiftData = objective.habits?.first(where: { $0.id == habit.id }) {
+                    habitSwiftData.name = habit.name
+                    habitSwiftData.date = habit.date
+                    habitSwiftData.place = habit.place
+                    habitSwiftData.notes = habit.notes
+                    try modelContext.save()
+                }
             }
         } catch {
             print("Failed to update habit: \(error)")
         }
     }
+
     
     func fetchHabits(for objective: ObjectiveModel) -> [HabitModel]? {
         var habit: [HabitModel] = []
@@ -188,6 +202,7 @@ class UserSwiftDataService: UserRepository {
     }
     
     func deleteHabit(id: UUID) {
+//        guard let habit = findHabitSwiftDataById(id: id) else { return  }
         do {
             let user = fetchUSerSwiftData()
             for (index, objective) in (user.objectives ?? []).enumerated() {
@@ -198,6 +213,8 @@ class UserSwiftDataService: UserRepository {
                 modelContext.delete(habitToDelete)
                 try modelContext.save()
             }
+//            modelContext.delete(habit)
+//            try modelContext.save()
         } catch {
             print("Failed to delete habit: \(error)")
         }
@@ -218,6 +235,7 @@ extension UserSwiftDataService {
         return user
     }
     
+    // This break the code if try to use, i dont know why
     private func findObjectiveSwiftDataById(id: UUID) -> ObjectiveSwiftData? {
         var objectiveReturn: ObjectiveSwiftData?
         let descriptor = FetchDescriptor<ObjectiveSwiftData>(predicate: #Predicate { $0.id == id })
@@ -229,6 +247,20 @@ extension UserSwiftDataService {
             print("Failed to fetch objective by ID: \(error)")
         }
         return objectiveReturn
+    }
+    
+    // This break the code if try to use, i dont know why
+    private func findHabitSwiftDataById(id: UUID) -> HabitSwiftData? {
+        var habitReturn: HabitSwiftData?
+        let descriptor = FetchDescriptor<HabitSwiftData>(predicate: #Predicate { $0.id == id })
+        do {
+            if let habit = try modelContext.fetch(descriptor).first {
+                habitReturn = habit
+            }
+        } catch {
+            print("Failed to fetch objective by ID: \(error)")
+        }
+        return habitReturn
     }
 }
 
