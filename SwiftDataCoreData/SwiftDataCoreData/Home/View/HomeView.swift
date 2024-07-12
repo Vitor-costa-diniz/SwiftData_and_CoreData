@@ -77,7 +77,7 @@ struct HomeView: View {
             }
             .padding(.horizontal)
             
-            ForEach(viewModel.fetchAllHabtis() ?? []) { habit in
+            ForEach(viewModel.habits) { habit in
                 HStack {
                     Text(habit.name)
                         .onTapGesture {

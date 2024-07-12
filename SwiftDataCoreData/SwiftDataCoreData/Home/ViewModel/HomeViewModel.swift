@@ -21,6 +21,7 @@ class HomeViewModel: ObservableObject {
         self.persistenceService = UserCoreDataService()
         if let persistence = persistenceService {
             self.user = persistence.fetchUser()
+            habits = persistence.fetchAllHabtis() ?? []
         }
     }
     
@@ -46,15 +47,17 @@ class HomeViewModel: ObservableObject {
     func deleteObjective(objective: ObjectiveModel) {
         persistenceService?.deleteObjective(objective: objective)
         fetchData()
+        fetchHabits()
     }
     
     func addHabit(to objective: ObjectiveModel, habit: HabitModel) {
         persistenceService?.addHabit(to: objective, habit: habit)
-        fetchData()
+        fetchHabits()
     }
 
     func updateHabit(habit: HabitModel) {
         persistenceService?.updateHabit(habit: habit)
+        fetchHabits()
     }
     
     func fetchAllHabtis() -> [HabitModel]? {
@@ -63,10 +66,14 @@ class HomeViewModel: ObservableObject {
     
     func deleteHabit(id: UUID) {
         persistenceService?.deleteHabit(id: id)
-        fetchData()
+        fetchHabits()
     }
     
     private func fetchData() {
         self.user = persistenceService?.fetchUser() ?? UserModel()
+    }
+    
+    private func fetchHabits() {
+        self.habits = persistenceService?.fetchAllHabtis() ?? []
     }
 }
