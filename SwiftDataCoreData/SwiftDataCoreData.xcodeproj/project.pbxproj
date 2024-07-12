@@ -22,10 +22,7 @@
 		4AAB21382C37379100D8CAC6 /* EditObjectiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAB21372C37379100D8CAC6 /* EditObjectiveSheet.swift */; };
 		4AAB213A2C378DC800D8CAC6 /* AddHabitSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAB21392C378DC700D8CAC6 /* AddHabitSheet.swift */; };
 		4AAB213C2C37A01400D8CAC6 /* EditHabitSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAB213B2C37A01400D8CAC6 /* EditHabitSheet.swift */; };
-		4AF467B92C40015800CCE31D /* UserCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4AF467B72C40015800CCE31D /* UserCoreData.xcdatamodeld */; };
-		4AF467BB2C4007D700CCE31D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF467BA2C4007D700CCE31D /* CoreDataStack.swift */; };
 		4AF467BD2C40094800CCE31D /* ProjectModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF467BC2C40094800CCE31D /* ProjectModels.swift */; };
-		4AF467BF2C400C8900CCE31D /* UserCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF467BE2C400C8900CCE31D /* UserCoreDataService.swift */; };
 		4AF90D812C35ECE70020BD07 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF90D802C35ECE70020BD07 /* HomeView.swift */; };
 		4AF90D842C35ED190020BD07 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF90D832C35ED190020BD07 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -58,10 +55,7 @@
 		4AAB21372C37379100D8CAC6 /* EditObjectiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditObjectiveSheet.swift; sourceTree = "<group>"; };
 		4AAB21392C378DC700D8CAC6 /* AddHabitSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitSheet.swift; sourceTree = "<group>"; };
 		4AAB213B2C37A01400D8CAC6 /* EditHabitSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHabitSheet.swift; sourceTree = "<group>"; };
-		4AF467B82C40015800CCE31D /* UserCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserCoreData.xcdatamodel; sourceTree = "<group>"; };
-		4AF467BA2C4007D700CCE31D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		4AF467BC2C40094800CCE31D /* ProjectModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModels.swift; sourceTree = "<group>"; };
-		4AF467BE2C400C8900CCE31D /* UserCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreDataService.swift; sourceTree = "<group>"; };
 		4AF90D802C35ECE70020BD07 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4AF90D832C35ED190020BD07 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,7 +132,6 @@
 				4A2EF3B52C2DF12900A6E6F1 /* Models */,
 				4A2EF3BF2C2DF25D00A6E6F1 /* Repository */,
 				4A2EF3C22C2DF29200A6E6F1 /* Services */,
-				4AF467B72C40015800CCE31D /* UserCoreData.xcdatamodeld */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -166,8 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				4A2EF3C32C2DF2AF00A6E6F1 /* UserSwiftDataService.swift */,
-				4AF467BA2C4007D700CCE31D /* CoreDataStack.swift */,
-				4AF467BE2C400C8900CCE31D /* UserCoreDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -309,7 +300,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AF467BB2C4007D700CCE31D /* CoreDataStack.swift in Sources */,
 				4AAB213A2C378DC800D8CAC6 /* AddHabitSheet.swift in Sources */,
 				4A2EF3BE2C2DF1DE00A6E6F1 /* HabitSwiftData.swift in Sources */,
 				4AF90D842C35ED190020BD07 /* HomeViewModel.swift in Sources */,
@@ -317,8 +307,6 @@
 				4A2EF3C12C2DF28700A6E6F1 /* UserRepository.swift in Sources */,
 				4A2EF3BC2C2DF18100A6E6F1 /* ObjectiveSwiftData.swift in Sources */,
 				4A2EF38A2C2DEF4500A6E6F1 /* SwiftDataCoreDataApp.swift in Sources */,
-				4AF467B92C40015800CCE31D /* UserCoreData.xcdatamodeld in Sources */,
-				4AF467BF2C400C8900CCE31D /* UserCoreDataService.swift in Sources */,
 				4AF467BD2C40094800CCE31D /* ProjectModels.swift in Sources */,
 				4AF90D812C35ECE70020BD07 /* HomeView.swift in Sources */,
 				4AAB21352C372C0F00D8CAC6 /* AddObjectiveSheet.swift in Sources */,
@@ -611,19 +599,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		4AF467B72C40015800CCE31D /* UserCoreData.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				4AF467B82C40015800CCE31D /* UserCoreData.xcdatamodel */,
-			);
-			currentVersion = 4AF467B82C40015800CCE31D /* UserCoreData.xcdatamodel */;
-			path = UserCoreData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 4A2EF37E2C2DEF4500A6E6F1 /* Project object */;
 }

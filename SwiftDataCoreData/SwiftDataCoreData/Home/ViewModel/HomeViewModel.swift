@@ -18,7 +18,7 @@ class HomeViewModel: ObservableObject {
     
     func setContext(_ context: ModelContext) {
         self.modelContext = context
-        self.persistenceService = UserCoreDataService()
+        self.persistenceService = UserSwiftDataService(modelContext: context)
         if let persistence = persistenceService {
             self.user = persistence.fetchUser()
             habits = persistence.fetchAllHabtis() ?? []
