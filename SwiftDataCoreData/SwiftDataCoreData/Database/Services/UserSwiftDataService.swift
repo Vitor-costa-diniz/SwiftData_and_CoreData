@@ -217,5 +217,18 @@ extension UserSwiftDataService {
         }
         return user
     }
+    
+    private func findObjectiveSwiftDataById(id: UUID) -> ObjectiveSwiftData? {
+        var objectiveReturn: ObjectiveSwiftData?
+        let descriptor = FetchDescriptor<ObjectiveSwiftData>(predicate: #Predicate { $0.id == id })
+        do {
+            if let objective = try modelContext.fetch(descriptor).first {
+                objectiveReturn = objective
+            }
+        } catch {
+            print("Failed to fetch objective by ID: \(error)")
+        }
+        return objectiveReturn
+    }
 }
 
