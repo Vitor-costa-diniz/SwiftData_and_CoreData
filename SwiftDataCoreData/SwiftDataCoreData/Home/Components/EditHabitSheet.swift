@@ -86,7 +86,7 @@ struct EditHabitSheet: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        var habitModel = habit
+                        let habitModel = habit
                         habitModel.name = name
                         habitModel.place = place
                         habitModel.date = date

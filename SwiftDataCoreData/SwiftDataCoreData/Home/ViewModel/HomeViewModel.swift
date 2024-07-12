@@ -12,12 +12,13 @@ class HomeViewModel: ObservableObject {
     private var persistenceService: UserRepository?
     private var modelContext: ModelContext?
     @Published private(set) var user: UserModel = UserModel()
+    @Published var habits: [HabitModel] = []
         
     init() { }
     
     func setContext(_ context: ModelContext) {
         self.modelContext = context
-        self.persistenceService = UserSwiftDataService(modelContext: context)
+        self.persistenceService = UserCoreDataService()
         if let persistence = persistenceService {
             self.user = persistence.fetchUser()
         }
@@ -35,7 +36,7 @@ class HomeViewModel: ObservableObject {
 
     func updateObjective(objective: ObjectiveModel) {
         persistenceService?.updateObjective(objective: objective)
-        self.user = persistenceService?.fetchUser() ?? UserModel()
+        fetchData()
     }
 
     func fetchObjectives() -> [ObjectiveModel]? {
@@ -49,11 +50,11 @@ class HomeViewModel: ObservableObject {
     
     func addHabit(to objective: ObjectiveModel, habit: HabitModel) {
         persistenceService?.addHabit(to: objective, habit: habit)
+        fetchData()
     }
 
     func updateHabit(habit: HabitModel) {
         persistenceService?.updateHabit(habit: habit)
-        self.user = persistenceService?.fetchUser() ?? UserModel()
     }
     
     func fetchAllHabtis() -> [HabitModel]? {

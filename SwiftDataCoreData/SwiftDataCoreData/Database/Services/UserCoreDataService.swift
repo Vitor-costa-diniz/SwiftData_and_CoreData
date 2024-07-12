@@ -67,12 +67,14 @@ class UserCoreDataService: UserRepository {
     
     func deleteObjective(objective: ObjectiveModel) {
         let context = CoreDataStack.shared.persistentContainer.viewContext
-        let user = fetchUserCoreData()
-        let objectiveCoreData = objective.toObjectiveCoreData(context: context)
         
-        user.removeFromObjectives(objectiveCoreData)
-        
-        CoreDataStack.shared.saveContext()
+        if let ObjectiveCoreData = findObjectiveById(id: objective.id) {
+            context.delete(ObjectiveCoreData)
+            
+            CoreDataStack.shared.saveContext()
+        } else {
+            print("Habit with ID \(objective.id) not found.")
+        }
     }
     
     func addHabit(to objective: ObjectiveModel, habit: HabitModel) {
@@ -86,7 +88,6 @@ class UserCoreDataService: UserRepository {
     }
     
     func updateHabit(habit: HabitModel) {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
         let habitCoreData = findHabitById(id: habit.id)
         
         habitCoreData?.name = habit.name
@@ -98,7 +99,6 @@ class UserCoreDataService: UserRepository {
     }
     
     func fetchHabits(for objective: ObjectiveModel) -> [HabitModel]? {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
         let objectiveCoreData = findObjectiveById(id: objective.id)
         
         let habits = objectiveCoreData?.habits?.compactMap({ habitCoreData in
@@ -127,16 +127,13 @@ class UserCoreDataService: UserRepository {
     
     func deleteHabit(id: UUID) {
         let context = CoreDataStack.shared.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         
-        do {
-            if let habitToDelete = try context.fetch(fetchRequest).first {
-                context.delete(habitToDelete)
-                CoreDataStack.shared.saveContext()
-            }
-        } catch {
-            print("Failed to delete habit: \(error)")
+        if let habitCoreData = findHabitById(id: id) {
+            context.delete(habitCoreData)
+            
+            CoreDataStack.shared.saveContext()
+        } else {
+            print("Habit with ID \(id) not found.")
         }
     }
 }
