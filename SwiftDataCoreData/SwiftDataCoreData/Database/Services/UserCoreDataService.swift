@@ -9,6 +9,12 @@ import Foundation
 import CoreData
 
 class UserCoreDataService: UserRepository {
+    private let coreDataStack: CoreDataStack
+
+    init(coreDataStack: CoreDataStack = CoreDataStack.shared) {
+        self.coreDataStack = coreDataStack
+    }
+    
     func fetchUser() -> UserModel {
         let context = CoreDataStack.shared.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()

@@ -11,10 +11,11 @@ import CoreData
 let dbName = "UserCoreData"
 
 class CoreDataStack {
-    let persistentContainer: NSPersistentContainer
+    var persistentContainer: NSPersistentContainer
     static let shared = CoreDataStack()
     
-    private init() {
+    ///This should be private, but is public for tests
+    init() {
         persistentContainer = NSPersistentContainer(name: dbName)
         persistentContainer.loadPersistentStores {(_, error) in
             if let error = error {
