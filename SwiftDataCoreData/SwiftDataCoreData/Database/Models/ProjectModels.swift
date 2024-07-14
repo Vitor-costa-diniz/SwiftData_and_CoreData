@@ -25,15 +25,6 @@ class UserModel {
             self.objectives = nil
         }
     }
-    
-    init(userSwiftData: UserSwiftData) {
-        self.name = userSwiftData.name
-        if let objectivesArray = userSwiftData.objectives {
-            self.objectives = objectivesArray.map { ObjectiveModel(objectiveSwiftData: $0) }
-        } else {
-            self.objectives = nil
-        }
-    }
 }
 
 class ObjectiveModel: Identifiable, Equatable, Hashable {
@@ -58,18 +49,6 @@ class ObjectiveModel: Identifiable, Equatable, Hashable {
         self.notes = objectiveCoreData.notes
         if let habitsSet = objectiveCoreData.habits as? Set<HabitCoreData> {
             self.habits = habitsSet.map { HabitModel(habitCoreData: $0) }
-        } else {
-            self.habits = nil
-        }
-    }
-    
-    init(objectiveSwiftData: ObjectiveSwiftData) {
-        self.id = objectiveSwiftData.id
-        self.name = objectiveSwiftData.name
-        self.startDate = objectiveSwiftData.startDate
-        self.notes = objectiveSwiftData.notes
-        if let habitsArray = objectiveSwiftData.habits {
-            self.habits = habitsArray.map { HabitModel(habitSwiftData: $0) }
         } else {
             self.habits = nil
         }
@@ -106,14 +85,6 @@ class HabitModel: Identifiable {
         self.place = habitCoreData.place ?? ""
         self.notes = habitCoreData.notes
     }
-    
-    init(habitSwiftData: HabitSwiftData) {
-        self.id = habitSwiftData.id
-        self.name = habitSwiftData.name
-        self.date = habitSwiftData.date
-        self.place = habitSwiftData.place
-        self.notes = habitSwiftData.notes
-    }
 }
 
 extension ObjectiveModel {
@@ -132,17 +103,6 @@ extension ObjectiveModel {
         }
         return objectiveCoreData
     }
-    
-    func toObjectiveSwiftData() -> ObjectiveSwiftData {
-        let habitsSwiftData = self.habits?.map { $0.toHabitSwiftData() }
-        return ObjectiveSwiftData(
-            id: self.id,
-            name: self.name,
-            startDate: self.startDate,
-            notes: self.notes,
-            habits: habitsSwiftData
-        )
-    }
 }
 
 extension HabitModel {
@@ -154,15 +114,5 @@ extension HabitModel {
         habitCoreData.place = self.place
         habitCoreData.notes = self.notes
         return habitCoreData
-    }
-    
-    func toHabitSwiftData() -> HabitSwiftData {
-        return HabitSwiftData(
-            id: self.id,
-            name: self.name,
-            date: self.date,
-            place: self.place,
-            notes: self.notes
-        )
     }
 }

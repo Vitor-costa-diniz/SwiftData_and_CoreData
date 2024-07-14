@@ -6,18 +6,13 @@
 //
 
 import Foundation
-import SwiftData
 
 class HomeViewModel: ObservableObject {
     private var persistenceService: UserRepository?
-    private var modelContext: ModelContext?
     @Published private(set) var user: UserModel = UserModel()
     @Published var habits: [HabitModel] = []
         
-    init() { }
-    
-    func setContext(_ context: ModelContext) {
-        self.modelContext = context
+    init() { 
         self.persistenceService = UserCoreDataService()
         if let persistence = persistenceService {
             self.user = persistence.fetchUser()

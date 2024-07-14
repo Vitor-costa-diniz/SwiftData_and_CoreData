@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AppTabBar: View {
     @State private var tabBarSelection: Int = 0
-    @Environment(\.modelContext) var context
     @StateObject var homeViewModel = HomeViewModel()
     
     var body: some View {
@@ -32,9 +31,6 @@ struct AppTabBar: View {
                         icon: { Image(systemName: "plus") }
                     )
                 }
-        }
-        .onAppear {
-            homeViewModel.setContext(context)
         }
         .tint(.blue)
     }
