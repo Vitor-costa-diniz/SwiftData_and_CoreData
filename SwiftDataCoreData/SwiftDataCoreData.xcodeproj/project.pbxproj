@@ -14,8 +14,6 @@
 		4A2EF3BC2C2DF18100A6E6F1 /* ObjectiveSwiftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EF3BB2C2DF18100A6E6F1 /* ObjectiveSwiftData.swift */; };
 		4A2EF3BE2C2DF1DE00A6E6F1 /* HabitSwiftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EF3BD2C2DF1DE00A6E6F1 /* HabitSwiftData.swift */; };
 		4A2EF3C12C2DF28700A6E6F1 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EF3C02C2DF28700A6E6F1 /* UserRepository.swift */; };
-		4A2EF3C42C2DF2AF00A6E6F1 /* UserSwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EF3C32C2DF2AF00A6E6F1 /* UserSwiftDataService.swift */; };
-		4A2EF3C62C2DF38300A6E6F1 /* UserSwiftDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EF3C52C2DF38300A6E6F1 /* UserSwiftDataTests.swift */; };
 		4A390DBB2C2DF61D00486AE9 /* AppTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A390DBA2C2DF61D00486AE9 /* AppTabBar.swift */; };
 		4AAB21352C372C0F00D8CAC6 /* AddObjectiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAB21342C372C0F00D8CAC6 /* AddObjectiveSheet.swift */; };
 		4AAB21382C37379100D8CAC6 /* EditObjectiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAB21372C37379100D8CAC6 /* EditObjectiveSheet.swift */; };
@@ -51,8 +49,6 @@
 		4A2EF3BB2C2DF18100A6E6F1 /* ObjectiveSwiftData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveSwiftData.swift; sourceTree = "<group>"; };
 		4A2EF3BD2C2DF1DE00A6E6F1 /* HabitSwiftData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSwiftData.swift; sourceTree = "<group>"; };
 		4A2EF3C02C2DF28700A6E6F1 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
-		4A2EF3C32C2DF2AF00A6E6F1 /* UserSwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSwiftDataService.swift; sourceTree = "<group>"; };
-		4A2EF3C52C2DF38300A6E6F1 /* UserSwiftDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSwiftDataTests.swift; sourceTree = "<group>"; };
 		4A390DBA2C2DF61D00486AE9 /* AppTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBar.swift; sourceTree = "<group>"; };
 		4AAB21342C372C0F00D8CAC6 /* AddObjectiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddObjectiveSheet.swift; sourceTree = "<group>"; };
 		4AAB21372C37379100D8CAC6 /* EditObjectiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditObjectiveSheet.swift; sourceTree = "<group>"; };
@@ -128,7 +124,6 @@
 		4A2EF3992C2DEF4600A6E6F1 /* SwiftDataCoreDataTests */ = {
 			isa = PBXGroup;
 			children = (
-				4A2EF3C52C2DF38300A6E6F1 /* UserSwiftDataTests.swift */,
 				4AE7F3582C437DF0003BC96B /* TestCoreDataStack.swift */,
 				4AE7F35A2C43812A003BC96B /* UserCoreDataTests.swift */,
 			);
@@ -168,7 +163,6 @@
 		4A2EF3C22C2DF29200A6E6F1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				4A2EF3C32C2DF2AF00A6E6F1 /* UserSwiftDataService.swift */,
 				4AF467BA2C4007D700CCE31D /* CoreDataStack.swift */,
 				4AF467BE2C400C8900CCE31D /* UserCoreDataService.swift */,
 			);
@@ -316,7 +310,6 @@
 				4AAB213A2C378DC800D8CAC6 /* AddHabitSheet.swift in Sources */,
 				4A2EF3BE2C2DF1DE00A6E6F1 /* HabitSwiftData.swift in Sources */,
 				4AF90D842C35ED190020BD07 /* HomeViewModel.swift in Sources */,
-				4A2EF3C42C2DF2AF00A6E6F1 /* UserSwiftDataService.swift in Sources */,
 				4A2EF3C12C2DF28700A6E6F1 /* UserRepository.swift in Sources */,
 				4A2EF3BC2C2DF18100A6E6F1 /* ObjectiveSwiftData.swift in Sources */,
 				4A2EF38A2C2DEF4500A6E6F1 /* SwiftDataCoreDataApp.swift in Sources */,
@@ -336,7 +329,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A2EF3C62C2DF38300A6E6F1 /* UserSwiftDataTests.swift in Sources */,
 				4AE7F3592C437DF0003BC96B /* TestCoreDataStack.swift in Sources */,
 				4AE7F35B2C43812A003BC96B /* UserCoreDataTests.swift in Sources */,
 			);
