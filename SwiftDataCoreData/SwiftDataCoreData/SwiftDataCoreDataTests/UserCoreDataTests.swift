@@ -55,7 +55,8 @@ final class UserCoreDataTests: XCTestCase {
         let listObjectives = viewModel.fetchObjectives()
         XCTAssertNotNil(listObjectives, "Objective list should not be nil")
     }
-
+    
+    // This test sometimes gives errors, I couldn't make it consistent
     func test_delete_objective() throws {
         let mockObjective = ObjectiveModel(name: "Test delete obj", startDate: Date())
         let expectation = XCTestExpectation(description: "Objective added and deleted")
@@ -135,6 +136,7 @@ final class UserCoreDataTests: XCTestCase {
         XCTAssertEqual(listHabits?.count, 2, "Habit count should be equal to 2")
     }
 
+    // This test sometimes gives errors, I couldn't make it consistent
     func test_delete_habit() throws {
         let mockObjective = ObjectiveModel(name: "Testar", startDate: Date())
         let mockHabit1 = HabitModel(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
