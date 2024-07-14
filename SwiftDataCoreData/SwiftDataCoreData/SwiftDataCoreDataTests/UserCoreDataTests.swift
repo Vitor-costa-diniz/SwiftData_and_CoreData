@@ -65,7 +65,78 @@ final class UserCoreDataTests: XCTestCase {
         XCTAssertNil(viewModel.user.objectives?.first, "Objective should be nil")
     }
     
+    func test_add_habit() throws {
+        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
+        let mockHabit = HabitModel(name: "Noite", date: Date(), place: "", notes: "Test Notes")
+        viewModel.setUserName(name: "vitor")
+        viewModel.addObjective(objective: mockObjetive)
+
+        viewModel.addHabit(to: mockObjetive, habit: mockHabit)
+        let firstHabit = viewModel.user.objectives?.first?.habits?.first
+        XCTAssertEqual(firstHabit?.name, "Noite", "Habit name should be Noite")
+    }
+
+    func test_update_habit() throws {
+        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
+        let mockHabit = HabitModel(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
+        viewModel.setUserName(name: "vitor")
+        viewModel.addObjective(objective: mockObjetive)
+        viewModel.addHabit(to: mockObjetive, habit: mockHabit)
+
+        mockHabit.name = "Manha"
+        viewModel.updateHabit(habit: mockHabit)
+
+        let firstHabit = viewModel.user.objectives?.first?.habits?.first
+        XCTAssertEqual(firstHabit?.name, "Manha", "Habit name should be Noite")
+    }
+
+    func test_list_habits() throws {
+        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
+        let mockHabit = HabitModel(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
+        let mockHabit2 = HabitModel(name: "Manha", date: Date(), place: "", notes: "Dormir que sou fraco")
+
+        viewModel.setUserName(name: "vitor")
+        viewModel.addObjective(objective: mockObjetive)
+        viewModel.addHabit(to: mockObjetive, habit: mockHabit)
+        viewModel.addHabit(to: mockObjetive, habit: mockHabit2)
+
+        let listHabits = viewModel.fetchHabits(for: mockObjetive)
+
+        XCTAssertEqual(listHabits?.count, 2, "Habit count should be equal to 2")
+    }
     
+    func test_list_all_habits() throws {
+        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
+        let mockHabit = HabitModel(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
+        let mockHabit2 = HabitModel(name: "Manha", date: Date(), place: "", notes: "Dormir que sou fraco")
+
+        viewModel.setUserName(name: "vitor")
+        viewModel.addObjective(objective: mockObjetive)
+        viewModel.addHabit(to: mockObjetive, habit: mockHabit)
+        viewModel.addHabit(to: mockObjetive, habit: mockHabit2)
+
+        let listHabits = viewModel.fetchAllHabits()
+
+        XCTAssertEqual(listHabits?.count, 2, "Habit count should be equal to 2")
+    }
+
+    func test_delete_habit() throws {
+        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
+        let mockHabit = HabitModel(name: "Noite",date: Date(), place: "", notes: "Teste ne paizao")
+        let mockHabit2 = HabitModel(name: "Manha",date: Date(), place: "", notes: "Dormir que sou fraco")
+
+        viewModel.setUserName(name: "vitor")
+        viewModel.addObjective(objective: mockObjetive)
+        viewModel.addHabit(to: mockObjetive, habit: mockHabit)
+        viewModel.addHabit(to: mockObjetive, habit: mockHabit2)
+        viewModel.deleteHabit(id: mockHabit.id)
+
+        let listHabits = viewModel.fetchHabits(for: mockObjetive)
+
+        XCTAssertEqual(listHabits?.count, 1, "Habit count should be equal to 1")
+        XCTAssertEqual(listHabits?.first?.name, "Manha", "Habit first position name should be Manha")
+    }
+
 
 //    func testPerformanceExample() throws {
 //        // This is an example of a performance test case.
