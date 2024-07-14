@@ -16,7 +16,7 @@ class UserCoreDataService: UserRepository {
     }
     
     func fetchUser() -> UserModel {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
+        let context = coreDataStack.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
         var userModel: UserModel = UserModel()
         
@@ -34,11 +34,11 @@ class UserCoreDataService: UserRepository {
         let user = fetchUserCoreData()
         user.name = name
         
-        CoreDataStack.shared.saveContext()
+        coreDataStack.saveContext()
     }
     
     func addObjective(objective: ObjectiveModel) {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
+        let context = coreDataStack.persistentContainer.viewContext
         let user = fetchUserCoreData()
         let objectiveCoreData = ObjectiveCoreData(context: context)
         
@@ -54,7 +54,7 @@ class UserCoreDataService: UserRepository {
         }
         
         user.addToObjectives(objectiveCoreData)
-        CoreDataStack.shared.saveContext()
+        coreDataStack.saveContext()
     }
     
     func updateObjective(objective: ObjectiveModel) {
@@ -63,7 +63,7 @@ class UserCoreDataService: UserRepository {
         objectiveToUpdate?.startDate = objective.startDate
         objectiveToUpdate?.notes = objective.notes
         
-        CoreDataStack.shared.saveContext()
+        coreDataStack.saveContext()
     }
     
     func fetchObjectives() -> [ObjectiveModel]? {
@@ -72,25 +72,25 @@ class UserCoreDataService: UserRepository {
     }
     
     func deleteObjective(objective: ObjectiveModel) {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
+        let context = coreDataStack.persistentContainer.viewContext
         
         if let ObjectiveCoreData = findObjectiveById(id: objective.id) {
             context.delete(ObjectiveCoreData)
             
-            CoreDataStack.shared.saveContext()
+            coreDataStack.saveContext()
         } else {
             print("Habit with ID \(objective.id) not found.")
         }
     }
     
     func addHabit(to objective: ObjectiveModel, habit: HabitModel) {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
+        let context = coreDataStack.persistentContainer.viewContext
         let objectiveCoreData = findObjectiveById(id: objective.id)
         let habitCoreData = habit.toHabitCoreData(context: context)
         
         objectiveCoreData?.addToHabits(habitCoreData)
         
-        CoreDataStack.shared.saveContext()
+        coreDataStack.saveContext()
     }
     
     func updateHabit(habit: HabitModel) {
@@ -101,7 +101,7 @@ class UserCoreDataService: UserRepository {
         habitCoreData?.place = habit.place
         habitCoreData?.notes = habit.notes
         
-        CoreDataStack.shared.saveContext()
+        coreDataStack.saveContext()
     }
     
     func fetchHabits(for objective: ObjectiveModel) -> [HabitModel]? {
@@ -115,7 +115,7 @@ class UserCoreDataService: UserRepository {
     }
     
     func fetchAllHabtis() -> [HabitModel]? {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
+        let context = coreDataStack.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()
         var habitsModel: [HabitModel]? = []
         
@@ -132,12 +132,12 @@ class UserCoreDataService: UserRepository {
     }
     
     func deleteHabit(id: UUID) {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
+        let context = coreDataStack.persistentContainer.viewContext
         
         if let habitCoreData = findHabitById(id: id) {
             context.delete(habitCoreData)
             
-            CoreDataStack.shared.saveContext()
+            coreDataStack.saveContext()
         } else {
             print("Habit with ID \(id) not found.")
         }
@@ -146,7 +146,7 @@ class UserCoreDataService: UserRepository {
 
 extension UserCoreDataService {
     private func fetchUserCoreData() -> UserCoreData {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
+        let context = coreDataStack.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
         
         do {
@@ -162,7 +162,7 @@ extension UserCoreDataService {
     }
     
     private func findObjectiveById(id: UUID) -> ObjectiveCoreData? {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
+        let context = coreDataStack.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<ObjectiveCoreData> = ObjectiveCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         
@@ -175,7 +175,7 @@ extension UserCoreDataService {
     }  
     
     private func findHabitById(id: UUID) -> HabitCoreData? {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
+        let context = coreDataStack.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         

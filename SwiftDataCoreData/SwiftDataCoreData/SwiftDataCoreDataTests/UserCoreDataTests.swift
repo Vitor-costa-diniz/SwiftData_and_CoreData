@@ -26,6 +26,46 @@ final class UserCoreDataTests: XCTestCase {
         viewModel.setUserName(name: "vitor")
         XCTAssertEqual(viewModel.user.name, "vitor", "User name should be Vitor")
     }
+    
+    func test_add_objetive() throws {
+        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
+        viewModel.setUserName(name: "vitor")
+        viewModel.addObjective(objective: mockObjetive)
+        XCTAssertEqual(viewModel.user.objectives?.first?.name, "Testar", "Objetive name should be Testar")
+    }
+
+    func test_update_objetive() throws {
+        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
+        viewModel.setUserName(name: "vitor")
+        viewModel.addObjective(objective: mockObjetive)
+        XCTAssertEqual(viewModel.user.objectives?.first?.name, "Testar", "Objetive name should be Testar")
+
+        mockObjetive.name = "Teste2"
+        viewModel.updateObjective(objective: mockObjetive)
+
+        XCTAssertEqual(viewModel.user.objectives?.first?.name, "Teste2", "Objetive name should be Teste2")
+    }
+
+    func test_list_objetives() throws {
+        let mockObjetive = ObjectiveModel(name: "Teste add List", startDate: Date())
+        viewModel.setUserName(name: "vitor")
+        viewModel.addObjective(objective: mockObjetive)
+
+        let listObjectives = viewModel.fetchObjectives()
+        XCTAssertNotNil(listObjectives, "Objective list should not be nil")
+    }
+
+    func test_delete_objetive() throws {
+        let mockObjetive = ObjectiveModel(name: "Test delete obj", startDate: Date())
+        viewModel.setUserName(name: "vitor")
+        viewModel.addObjective(objective: mockObjetive)
+        XCTAssertEqual(viewModel.user.objectives?.first?.name, "Test delete obj", "Objetive name should be Test delete obj")
+        
+        viewModel.deleteObjective(objective: mockObjetive)
+        XCTAssertNil(viewModel.user.objectives?.first, "Objective should be nil")
+    }
+    
+    
 
 //    func testPerformanceExample() throws {
 //        // This is an example of a performance test case.
