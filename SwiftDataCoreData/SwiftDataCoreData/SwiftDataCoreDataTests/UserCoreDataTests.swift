@@ -13,13 +13,14 @@ final class UserCoreDataTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        super.setUp()
+        try super.setUpWithError()
         viewModel = MockViewModelCoreData()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         viewModel = nil
+        try super.tearDownWithError()
     }
 
     func test_add_user() throws {
@@ -55,15 +56,29 @@ final class UserCoreDataTests: XCTestCase {
         XCTAssertNotNil(listObjectives, "Objective list should not be nil")
     }
 
-    func test_delete_objetive() throws {
-        let mockObjetive = ObjectiveModel(name: "Test delete obj", startDate: Date())
-        viewModel.setUserName(name: "vitor")
-        viewModel.addObjective(objective: mockObjetive)
-        XCTAssertEqual(viewModel.user.objectives?.first?.name, "Test delete obj", "Objetive name should be Test delete obj")
+    func test_delete_objective() throws {
+        let mockObjective = ObjectiveModel(name: "Test delete obj", startDate: Date())
+        let expectation = XCTestExpectation(description: "Objective added and deleted")
         
-        viewModel.deleteObjective(objective: mockObjetive)
-        XCTAssertNil(viewModel.user.objectives?.first, "Objective should be nil")
+        DispatchQueue.global().async {
+            self.viewModel.setUserName(name: "vitor")
+            self.viewModel.addObjective(objective: mockObjective)
+            
+            DispatchQueue.main.async {
+                XCTAssertEqual(self.viewModel.user.objectives?.first?.name, "Test delete obj", "Objective name should be Test delete obj")
+                
+                self.viewModel.deleteObjective(objective: mockObjective)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    XCTAssertNil(self.viewModel.user.objectives?.first, "Objective should be nil after deletion")
+                    expectation.fulfill()
+                }
+            }
+        }
+        
+        wait(for: [expectation], timeout: 3.0)
     }
+
     
     func test_add_habit() throws {
         let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
@@ -121,21 +136,39 @@ final class UserCoreDataTests: XCTestCase {
     }
 
     func test_delete_habit() throws {
-        let mockObjetive = ObjectiveModel(name: "Testar", startDate: Date())
-        let mockHabit = HabitModel(name: "Noite",date: Date(), place: "", notes: "Teste ne paizao")
-        let mockHabit2 = HabitModel(name: "Manha",date: Date(), place: "", notes: "Dormir que sou fraco")
-
-        viewModel.setUserName(name: "vitor")
-        viewModel.addObjective(objective: mockObjetive)
-        viewModel.addHabit(to: mockObjetive, habit: mockHabit)
-        viewModel.addHabit(to: mockObjetive, habit: mockHabit2)
-        viewModel.deleteHabit(id: mockHabit.id)
-
-        let listHabits = viewModel.fetchHabits(for: mockObjetive)
-
-        XCTAssertEqual(listHabits?.count, 1, "Habit count should be equal to 1")
-        XCTAssertEqual(listHabits?.first?.name, "Manha", "Habit first position name should be Manha")
+        let mockObjective = ObjectiveModel(name: "Testar", startDate: Date())
+        let mockHabit1 = HabitModel(name: "Noite", date: Date(), place: "", notes: "Teste ne paizao")
+        let mockHabit2 = HabitModel(name: "Manha", date: Date(), place: "", notes: "Dormir que sou fraco")
+        let expectation = XCTestExpectation(description: "Habit added and deleted")
+        
+        DispatchQueue.global().async {
+            self.viewModel.setUserName(name: "vitor")
+            self.viewModel.addObjective(objective: mockObjective)
+            
+            self.viewModel.addHabit(to: mockObjective, habit: mockHabit1)
+            self.viewModel.addHabit(to: mockObjective, habit: mockHabit2)
+            
+            DispatchQueue.main.async {
+                let listHabits = self.viewModel.fetchHabits(for: mockObjective)
+                
+                XCTAssertEqual(listHabits?.count, 2, "Initial habit count should be equal to 2")
+                
+                self.viewModel.deleteHabit(id: mockHabit1.id)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    let updatedListHabits = self.viewModel.fetchHabits(for: mockObjective)
+                    
+                    XCTAssertEqual(updatedListHabits?.count, 1, "Habit count should be equal to 1 after deletion")
+                    XCTAssertEqual(updatedListHabits?.first?.name, "Manha", "First habit name should be Manha")
+                    
+                    expectation.fulfill()
+                }
+            }
+        }
+        
+        wait(for: [expectation], timeout: 3.0)
     }
+
 
 
 //    func testPerformanceExample() throws {
