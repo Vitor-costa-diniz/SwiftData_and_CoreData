@@ -67,12 +67,12 @@ struct HomeView: View {
                     .font(.title)
                 Spacer()
                 Button(action: {
-                    if viewModel.fetchObjectives() != [] {
+                    if viewModel.user.objectives?.count != 0 {
                         showAddHabitSheet.toggle()
                     }
                 }, label: {
                     Image(systemName: "plus")
-                        .foregroundStyle(viewModel.fetchObjectives() != [] ? .blue : .gray)
+                        .foregroundStyle(viewModel.user.objectives?.count != 0 ? .blue : .gray)
                 })
             }
             .padding(.horizontal)

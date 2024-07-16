@@ -42,6 +42,7 @@ struct AppTabBar: View {
 
 #Preview {
     AppTabBar()
+        .modelContainer(for: UserSwiftData.self)
 }
 
 extension UITabBarController {
