@@ -19,18 +19,44 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
-            Text(viewModel.user.name ?? "Empty")
+            HStack {
+                Text("Name: \(viewModel.user.name ?? "Nil")")
+                    .font(.title3)
+                Spacer()
+                Text("DataBase: \(viewModel.databaseSelected.rawValue)")
+                
+            }
+            .padding(.horizontal)
             
             TextField("User name", text: $text)
                 .padding(.horizontal)
             
-            Button(action: { 
-                viewModel.setUserName(name: text)
-                text = ""
-            }, label: {
-                Text("Press to set user name")
+            HStack {
+                Button(action: { 
+                    viewModel.setUserName(name: text)
+                    text = ""
+                }, label: {
+                    Text("Set name")
+                        .foregroundStyle(.white)
+                        .padding(4)
+                        .background(
+                            Color.blue
+                                .clipShape(.rect(cornerRadius: 4))
+                        )
+                })
+                Spacer()
+                Picker("Change DataBase", selection: $viewModel.databaseSelected) {
+                    ForEach(DataBase.allCases, id: \.self) {
+                        Text($0.name)
+                            .tag($0)
+                    }
+                }
+            }
+            .onChange(of: viewModel.databaseSelected, {
+                viewModel.setDataBase(viewModel.databaseSelected)
             })
             .padding(.bottom)
+            .padding(.horizontal)
             
             HStack {
                 Text("Objectives List")
@@ -87,6 +113,8 @@ struct HomeView: View {
                     Spacer()
                 }
             }
+            .padding(.horizontal)
+            .padding(.bottom)
             
             Spacer()
         }

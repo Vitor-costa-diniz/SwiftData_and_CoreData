@@ -11,6 +11,7 @@ import SwiftData
 class HomeViewModel: ObservableObject {
     private var persistenceService: UserRepository?
     private var modelContext: ModelContext?
+    @Published var databaseSelected: DataBase = .coreData
     @Published private(set) var user: UserModel = UserModel()
     @Published var habits: [HabitModel] = []
         
@@ -69,11 +70,36 @@ class HomeViewModel: ObservableObject {
         fetchHabits()
     }
     
+    func setDataBase(_ database: DataBase) {
+        switch database {
+        case .swiftData:
+            databaseSelected = .swiftData
+            self.persistenceService = UserSwiftDataService(modelContext: modelContext!)
+            fetchData()
+            fetchHabits()
+        case .coreData:
+            databaseSelected = .coreData
+            self.persistenceService = UserCoreDataService()
+            fetchData()
+            fetchHabits()
+        }
+    }
+    
     private func fetchData() {
         self.user = persistenceService?.fetchUser() ?? UserModel()
     }
     
     private func fetchHabits() {
         self.habits = persistenceService?.fetchAllHabtis() ?? []
+    }
+    
+}
+
+enum DataBase: String, CaseIterable {
+    case swiftData = "SwiftData"
+    case coreData = "CoreData"
+
+    var name: String {
+        rawValue
     }
 }

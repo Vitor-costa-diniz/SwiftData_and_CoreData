@@ -18,6 +18,7 @@ struct EditObjectiveSheet: View {
         NavigationStack {
             VStack {
                 TextField("Objetive name", text: $name)
+                    .padding(.leading)
                     .background(
                         Rectangle()
                             .frame(height: 50)
@@ -27,6 +28,7 @@ struct EditObjectiveSheet: View {
                     .padding(.bottom, 24)
                 
                 TextField("Notes", text: $notes)
+                    .padding(.leading)
                     .background(
                         Rectangle()
                             .frame(height: 50)

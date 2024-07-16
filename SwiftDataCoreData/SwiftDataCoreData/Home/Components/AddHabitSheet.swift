@@ -20,6 +20,7 @@ struct AddHabitSheet: View {
         NavigationStack {
             VStack {
                 TextField("Habit name", text: $name)
+                    .padding(.leading)
                     .background(
                         Rectangle()
                             .frame(height: 50)
@@ -42,6 +43,7 @@ struct AddHabitSheet: View {
                 .padding(.bottom, 24)
                 
                 TextField("Habit place", text: $place)
+                    .padding(.leading)
                     .background(
                         Rectangle()
                             .frame(height: 50)
@@ -51,6 +53,7 @@ struct AddHabitSheet: View {
                     .padding(.bottom, 24)
                 
                 TextField("Notes", text: $notes)
+                    .padding(.leading)
                     .background(
                         Rectangle()
                             .frame(height: 50)
