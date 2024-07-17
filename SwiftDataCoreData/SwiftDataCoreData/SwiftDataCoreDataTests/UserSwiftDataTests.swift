@@ -62,12 +62,17 @@ final class UserSwiftDataServiceTests: XCTestCase {
 
     func test_delete_objetive() throws {
         let mockObjetive = ObjectiveModel(name: "Test delete obj", startDate: Date())
+        let mockObjetive2 = ObjectiveModel(name: "Test delete obj 2", startDate: Date())
         viewModel.setUserName(name: "vitor")
-        viewModel.addObjective(objective: mockObjetive)
-        XCTAssertEqual(viewModel.user.objectives?.first?.name, "Test delete obj", "Objetive name should be Test delete obj")
         
-        viewModel.deleteObjective(objective: mockObjetive)
-        XCTAssertNil(viewModel.user.objectives?.first, "Objective should be nil")
+        viewModel.addObjective(objective: mockObjetive)
+        viewModel.addObjective(objective: mockObjetive2)
+        
+        XCTAssertEqual(viewModel.user.objectives?.first?.name, "Test delete obj 2", "Objetive name should be Test delete obj")
+        
+        viewModel.deleteObjective(objective: mockObjetive2)
+        
+        XCTAssertEqual(viewModel.user.objectives?.first?.name, "Test delete obj", "Objetive name should be Test delete obj")
     }
 
     func test_add_habit() throws {
